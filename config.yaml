@@ -1,0 +1,83 @@
+# debug mode on false
+production: false
+# the `dev0` hex address
+avs_owner_address: 0x2C7C53A52D2ED17BdA8af00548c81A6C73F866C3
+# the `dev1` hex address
+operator_address: 0xF73268381F3bE9D4fe085d7c695cc21A6aAdCE9F
+# deployed address, will be populated
+# ORIGINAL QUE FUNCIONABA
+# avs_address: 0x445F5af2D3568B76417C888C709f3eFE2dD3Fd9C
+avs_address: 0x76004a1faaee7f4c12b3619c9a8a3f5e3a8ad771
+# URLs for RPC
+eth_rpc_url: http://127.0.0.1:8545
+eth_ws_url: ws://127.0.0.1:8546
+# location of the key files
+avs_ecdsa_private_key_store_path: tests/keys/avs.ecdsa.key.json
+operator_ecdsa_private_key_store_path: tests/keys/operator.ecdsa.key.json
+bls_private_key_store_path: tests/keys/test.bls.key.json
+# API for the AVS SDK, not required for this step
+node_api_ip_port_address: 0.0.0.0:9010
+enable_node_api: false
+# We have already registered the operator previously
+register_operator_on_startup: false
+## AVS registration parameters
+# Name of the AVS
+avs_name: "hello-avs"
+# The amount of minimum stake required, in USD.
+min_stake_amount: 1
+# The owner of the AVS (see `avs_owner_address`) above,
+# and the `operator` (for this example).
+avs_owner_addresses:
+  - "0x2C7C53A52D2ED17BdA8af00548c81A6C73F866C3"
+  - "0xF73268381F3bE9D4fe085d7c695cc21A6aAdCE9F"
+# List of operators that can opt-in
+# Leave blank to permit anyone
+whitelist_addresses:
+  - "0x2C7C53A52D2ED17BdA8af00548c81A6C73F866C3"
+  - "0xF73268381F3bE9D4fe085d7c695cc21A6aAdCE9F"
+# The assets which are accepted as delegation
+# For localnet, this is the USDT Ethereum mainnet asset
+asset_ids:
+  - "0xdac17f958d2ee523a2206206994597c13d831ec7_0x65"
+# The epoch, whose duration is used for time keeping
+epoch_identifier: minute
+# The number of epochs it takes for an operator to unbond
+avs_unbonding_period: 7
+# The minimum self delegation required to opt-in
+# Setting this to non-0 will prevent operators from opting-in
+# Unless they delegate first
+min_self_delegation: 0
+# Will be populated
+avs_reward_address: 0x445F5af2D3568B76417C888C709f3eFE2dD3Fd9C
+# Will be populated
+avs_slash_address: 0x445F5af2D3568B76417C888C709f3eFE2dD3Fd9C
+# Will be populated
+task_address: 0x445F5af2D3568B76417C888C709f3eFE2dD3Fd9C
+# The minimum number of operators required for a task to begin
+mini_opt_in_operators: 1
+# The minimum amount of stake (whether delegated or self) required
+# for a task to begin
+min_total_stake_amount: 3
+# The reward percentage
+avs_reward_proportion: 3
+# The slash percentage
+avs_slash_proportion: 3
+## Task creation parameters
+# A new task is created every 100 seconds
+create_task_interval: 100
+# The deadline for responding to a task, measured in epochs
+task_response_period: 3
+# The deadline to challenge a task, measured in epochs
+task_challenge_period: 3
+# The percentage of vote required for a task to complete
+threshold_percentage: 100
+# The deadline to aggregate a task
+task_statistical_period: 3
+## Operative parameters to opt in
+# The deposit quanity
+deposit_amount: 100
+# The delegated quantity
+delegate_amount: 100
+# The staker address on the client chain
+# The private key for this staker is not required
+staker: 0xa53f68563D22EB0dAFAA871b6C08a6852f91d627
