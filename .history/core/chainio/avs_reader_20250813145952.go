@@ -28,14 +28,14 @@ type AvsReader interface {
 
 type ChainReader struct {
 	logger     logging.Logger
-	avsManager *himera_avs.ContractHimeraAvs
+	avsManager *himera_avs.ContracthelloWorld
 	ethClient  eth.EthClient
 }
 
 var _ AvsReader = (*ChainReader)(nil)
 
 func NewChainReader(
-	avsManager *himera_avs.ContractHimeraAvs,
+	avsManager *himera_avs.ContracthelloWorld,
 	logger logging.Logger,
 	ethClient eth.EthClient,
 ) *ChainReader {

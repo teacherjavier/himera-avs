@@ -44,7 +44,7 @@ func BuildAvsRegistryChainSubscriber(
 	logger logging.Logger,
 ) (*AvsRegistryChainSubscriber, error) {
 	// Llamamos a la función "New" de nuestro binding
-	avssub, err := himera_avs.NewContractHimeraAvs(avssubAddr, ethWsClient)
+	avssub, err := himera_avs.NewHimeraAvs(avssubAddr, ethWsClient)
 	if err != nil {
 		logger.Error("Failed to create HimeraAvs contract binding for subscriber", "err", err)
 		return nil, err
@@ -53,9 +53,9 @@ func BuildAvsRegistryChainSubscriber(
 }
 
 // La función ahora acepta el tipo de canal correcto y llama a la función de 'Watch' correcta.
-func (s *AvsRegistryChainSubscriber) SubscribeToNewTasks(newTaskCreatedChan chan *himera_avs.ContractHimeraAvsTaskCreated) (event.Subscription, error) {
-	sub, err := s.avssub.WatchTaskCreated(
-		&bind.WatchOpts{}, newTaskCreatedChan,
+func (s *AvsRegistryChainSubscriber) SubscribeToNewTasks(newTaskCreatedChan chan *himera_avs.ContractHimeraAvsHimeraTaskCreated) (event.Subscription, error) {
+	sub, err := s.avssub.WatchHimeraTaskCreated(
+		&bind.WatchOpts{}, newTaskCreatedChan, nil, nil, nil,
 	)
 	if err != nil {
 		s.logger.Error("Failed to subscribe to new HimeraTaskCreated events", "err", err)

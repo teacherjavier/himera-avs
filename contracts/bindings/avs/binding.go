@@ -1,7 +1,7 @@
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
-package himera_avs
+package contractHimeraAvs
 
 import (
 	"errors"
@@ -49,18 +49,39 @@ type AVSParams struct {
 	AvsSlashProportion  uint64
 }
 
-// HimeraTaskLibraryTaskDefinition is an auto generated low-level Go binding around an user-defined struct.
-type HimeraTaskLibraryTaskDefinition struct {
-	Id          uint8
-	Name        string
-	TaskType    uint8
-	Description string
+// AvsServiceContractChallengeReq is an auto generated low-level Go binding around an user-defined struct.
+type AvsServiceContractChallengeReq struct {
+	TaskId            uint64
+	TaskAddress       common.Address
+	NumberToBeSquared uint64
+	Infos             []OperatorResInfo
+	SignedOperators   []common.Address
+	NoSignedOperators []common.Address
+	TaskTotalPower    string
+}
+
+// AvsServiceContractTaskResponse is an auto generated low-level Go binding around an user-defined struct.
+type AvsServiceContractTaskResponse struct {
+	TaskID        uint64
+	NumberSquared uint64
 }
 
 // OperatorActivePower is an auto generated low-level Go binding around an user-defined struct.
 type OperatorActivePower struct {
 	Operator common.Address
 	Power    *big.Int
+}
+
+// OperatorResInfo is an auto generated low-level Go binding around an user-defined struct.
+type OperatorResInfo struct {
+	TaskContractAddress common.Address
+	TaskID              uint64
+	OperatorAddress     common.Address
+	TaskResponseHash    string
+	TaskResponse        []byte
+	BlsSignature        []byte
+	Power               *big.Int
+	Phase               uint8
 }
 
 // TaskInfo is an auto generated low-level Go binding around an user-defined struct.
@@ -86,14 +107,47 @@ type TaskInfo struct {
 	EligibleSlashOperators  []common.Address
 }
 
+// TaskResultInfo is an auto generated low-level Go binding around an user-defined struct.
+type TaskResultInfo struct {
+	OperatorAddress     common.Address
+	TaskResponseHash    string
+	TaskResponse        []byte
+	BlsSignature        []byte
+	TaskContractAddress common.Address
+	TaskID              uint64
+	Phase               uint8
+}
+
 // ContractHimeraAvsMetaData contains all meta data concerning the ContractHimeraAvs contract.
 var ContractHimeraAvsMetaData = &bind.MetaData{
-	ABI: "[{\"type\":\"function\",\"name\":\"UPGRADE_INTERFACE_VERSION\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"string\",\"internalType\":\"string\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"challenge\",\"inputs\":[{\"name\":\"taskID\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"actualThreshold\",\"type\":\"uint8\",\"internalType\":\"uint8\"},{\"name\":\"isExpected\",\"type\":\"bool\",\"internalType\":\"bool\"},{\"name\":\"eligibleRewardOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"eligibleSlashOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"challengerAddress\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"address\",\"internalType\":\"address\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"createHimeraTask\",\"inputs\":[{\"name\":\"himeraTaskDefId\",\"type\":\"uint8\",\"internalType\":\"uint8\"},{\"name\":\"taskInput\",\"type\":\"bytes\",\"internalType\":\"bytes\"}],\"outputs\":[{\"name\":\"imuaTaskId\",\"type\":\"uint64\",\"internalType\":\"uint64\"}],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"deregisterOperatorFromAVS\",\"inputs\":[],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"getOptInOperators\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"address[]\",\"internalType\":\"address[]\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"getTaskDefinition\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint8\",\"internalType\":\"uint8\"}],\"outputs\":[{\"name\":\"\",\"type\":\"tuple\",\"internalType\":\"structHimeraTaskLibrary.TaskDefinition\",\"components\":[{\"name\":\"id\",\"type\":\"uint8\",\"internalType\":\"uint8\"},{\"name\":\"name\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"taskType\",\"type\":\"uint8\",\"internalType\":\"enumHimeraTaskLibrary.HimeraTaskType\"},{\"name\":\"description\",\"type\":\"string\",\"internalType\":\"string\"}]}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"getTaskInfo\",\"inputs\":[{\"name\":\"taskID\",\"type\":\"uint64\",\"internalType\":\"uint64\"}],\"outputs\":[{\"name\":\"\",\"type\":\"tuple\",\"internalType\":\"structTaskInfo\",\"components\":[{\"name\":\"taskContractAddress\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"name\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"hash\",\"type\":\"bytes\",\"internalType\":\"bytes\"},{\"name\":\"taskID\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"taskResponsePeriod\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"taskStatisticalPeriod\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"taskChallengePeriod\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"thresholdPercentage\",\"type\":\"uint8\",\"internalType\":\"uint8\"},{\"name\":\"startingEpoch\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"actualThreshold\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"optInOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"signedOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"noSignedOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"errSignedOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"taskTotalPower\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"operatorActivePower\",\"type\":\"tuple[]\",\"internalType\":\"structOperatorActivePower[]\",\"components\":[{\"name\":\"operator\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"power\",\"type\":\"uint256\",\"internalType\":\"uint256\"}]},{\"name\":\"isExpected\",\"type\":\"bool\",\"internalType\":\"bool\"},{\"name\":\"eligibleRewardOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"eligibleSlashOperators\",\"type\":\"address[]\",\"internalType\":\"address[]\"}]}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"initialize\",\"inputs\":[{\"name\":\"initialOwner\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"operatorSubmitTask\",\"inputs\":[{\"name\":\"taskID\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"taskResponse\",\"type\":\"bytes\",\"internalType\":\"bytes\"},{\"name\":\"blsSignature\",\"type\":\"bytes\",\"internalType\":\"bytes\"},{\"name\":\"phase\",\"type\":\"uint8\",\"internalType\":\"uint8\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"owner\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"address\",\"internalType\":\"address\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"proxiableUUID\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\",\"internalType\":\"bytes32\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"registerAVS\",\"inputs\":[{\"name\":\"params\",\"type\":\"tuple\",\"internalType\":\"structAVSParams\",\"components\":[{\"name\":\"sender\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"avsName\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"minStakeAmount\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"taskAddress\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"slashAddress\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"rewardAddress\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"avsOwnerAddresses\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"whitelistAddresses\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"assetIDs\",\"type\":\"string[]\",\"internalType\":\"string[]\"},{\"name\":\"avsUnbondingPeriod\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"minSelfDelegation\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"epochIdentifier\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"miniOptInOperators\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"minTotalStakeAmount\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"avsRewardProportion\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"avsSlashProportion\",\"type\":\"uint64\",\"internalType\":\"uint64\"}]}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"registerBLSPublicKey\",\"inputs\":[{\"name\":\"pubKey\",\"type\":\"bytes\",\"internalType\":\"bytes\"},{\"name\":\"pubKeyRegSig\",\"type\":\"bytes\",\"internalType\":\"bytes\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"registerOperatorToAVS\",\"inputs\":[],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"renounceOwnership\",\"inputs\":[],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"rewardManager\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"address\",\"internalType\":\"address\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"setChallenger\",\"inputs\":[{\"name\":\"_challenger\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"setRewardManager\",\"inputs\":[{\"name\":\"_rewardManager\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"setSlasher\",\"inputs\":[{\"name\":\"_slasher\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"setupTaskDefinitions\",\"inputs\":[],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"slasher\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"address\",\"internalType\":\"address\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"transferOwnership\",\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"updateAVS\",\"inputs\":[{\"name\":\"params\",\"type\":\"tuple\",\"internalType\":\"structAVSParams\",\"components\":[{\"name\":\"sender\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"avsName\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"minStakeAmount\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"taskAddress\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"slashAddress\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"rewardAddress\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"avsOwnerAddresses\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"whitelistAddresses\",\"type\":\"address[]\",\"internalType\":\"address[]\"},{\"name\":\"assetIDs\",\"type\":\"string[]\",\"internalType\":\"string[]\"},{\"name\":\"avsUnbondingPeriod\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"minSelfDelegation\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"epochIdentifier\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"miniOptInOperators\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"minTotalStakeAmount\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"avsRewardProportion\",\"type\":\"uint64\",\"internalType\":\"uint64\"},{\"name\":\"avsSlashProportion\",\"type\":\"uint64\",\"internalType\":\"uint64\"}]}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"upgradeToAndCall\",\"inputs\":[{\"name\":\"newImplementation\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"data\",\"type\":\"bytes\",\"internalType\":\"bytes\"}],\"outputs\":[],\"stateMutability\":\"payable\"},{\"type\":\"event\",\"name\":\"BLSPublicKeyRegistered\",\"inputs\":[{\"name\":\"operator\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"avsAddress\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"pubKey\",\"type\":\"bytes\",\"indexed\":false,\"internalType\":\"bytes\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"ChallengeSubmitted\",\"inputs\":[{\"name\":\"taskID\",\"type\":\"uint64\",\"indexed\":true,\"internalType\":\"uint64\"},{\"name\":\"challenger\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"isExpected\",\"type\":\"bool\",\"indexed\":false,\"internalType\":\"bool\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"HimeraTaskCreated\",\"inputs\":[{\"name\":\"imuaTaskId\",\"type\":\"uint64\",\"indexed\":true,\"internalType\":\"uint64\"},{\"name\":\"definitionHash\",\"type\":\"bytes32\",\"indexed\":false,\"internalType\":\"bytes32\"},{\"name\":\"himeraTaskDefId\",\"type\":\"uint8\",\"indexed\":false,\"internalType\":\"uint8\"},{\"name\":\"taskInput\",\"type\":\"bytes\",\"indexed\":false,\"internalType\":\"bytes\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Initialized\",\"inputs\":[{\"name\":\"version\",\"type\":\"uint64\",\"indexed\":false,\"internalType\":\"uint64\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"OperatorOptedIn\",\"inputs\":[{\"name\":\"operator\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"OperatorOptedOut\",\"inputs\":[{\"name\":\"operator\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"OwnershipTransferred\",\"inputs\":[{\"name\":\"previousOwner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"newOwner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"RewardManagerUpdated\",\"inputs\":[{\"name\":\"newRewardManager\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"SlasherUpdated\",\"inputs\":[{\"name\":\"newSlasher\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"TaskDefinitionCreated\",\"inputs\":[{\"name\":\"taskDefinitionId\",\"type\":\"uint8\",\"indexed\":true,\"internalType\":\"uint8\"},{\"name\":\"name\",\"type\":\"string\",\"indexed\":false,\"internalType\":\"string\"},{\"name\":\"taskType\",\"type\":\"uint8\",\"indexed\":false,\"internalType\":\"enumHimeraTaskLibrary.HimeraTaskType\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"TaskSubmitted\",\"inputs\":[{\"name\":\"taskID\",\"type\":\"uint64\",\"indexed\":true,\"internalType\":\"uint64\"},{\"name\":\"operator\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"phase\",\"type\":\"uint8\",\"indexed\":false,\"internalType\":\"uint8\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Upgraded\",\"inputs\":[{\"name\":\"implementation\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"error\",\"name\":\"AddressEmptyCode\",\"inputs\":[{\"name\":\"target\",\"type\":\"address\",\"internalType\":\"address\"}]},{\"type\":\"error\",\"name\":\"ERC1967InvalidImplementation\",\"inputs\":[{\"name\":\"implementation\",\"type\":\"address\",\"internalType\":\"address\"}]},{\"type\":\"error\",\"name\":\"ERC1967NonPayable\",\"inputs\":[]},{\"type\":\"error\",\"name\":\"FailedCall\",\"inputs\":[]},{\"type\":\"error\",\"name\":\"InvalidInitialization\",\"inputs\":[]},{\"type\":\"error\",\"name\":\"NotInitializing\",\"inputs\":[]},{\"type\":\"error\",\"name\":\"OwnableInvalidOwner\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\",\"internalType\":\"address\"}]},{\"type\":\"error\",\"name\":\"OwnableUnauthorizedAccount\",\"inputs\":[{\"name\":\"account\",\"type\":\"address\",\"internalType\":\"address\"}]},{\"type\":\"error\",\"name\":\"UUPSUnauthorizedCallContext\",\"inputs\":[]},{\"type\":\"error\",\"name\":\"UUPSUnsupportedProxiableUUID\",\"inputs\":[{\"name\":\"slot\",\"type\":\"bytes32\",\"internalType\":\"bytes32\"}]}]",
+	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"taskId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"issuer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"numberToBeSquared\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"taskResponsePeriod\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"taskChallengePeriod\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"thresholdPercentage\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"taskStatisticalPeriod\",\"type\":\"uint64\"}],\"name\":\"TaskCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"taskId\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"}],\"name\":\"TaskResolved\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint64\",\"name\":\"numberToBeSquared\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"taskResponsePeriod\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"taskChallengePeriod\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"thresholdPercentage\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"taskStatisticalPeriod\",\"type\":\"uint64\"}],\"name\":\"createNewTask\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"encodedData\",\"type\":\"bytes\"}],\"name\":\"decodeTaskRes\",\"outputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"numberSquared\",\"type\":\"uint64\"}],\"internalType\":\"structAvsServiceContract.TaskResponse\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deregisterOperatorFromAVS\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"deserializeTaskResponse\",\"outputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"numberSquared\",\"type\":\"uint64\"}],\"internalType\":\"structAvsServiceContract.TaskResponse\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"avsAddr\",\"type\":\"address\"}],\"name\":\"getAVSEpochIdentifier\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"avsAddr\",\"type\":\"address\"}],\"name\":\"getAVSUSDValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"}],\"name\":\"getChallengeInfo\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"challenger\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"epochIdentifier\",\"type\":\"string\"}],\"name\":\"getCurrentEpoch\",\"outputs\":[{\"internalType\":\"int64\",\"name\":\"\",\"type\":\"int64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"avsAddr\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operatorAddr\",\"type\":\"address\"}],\"name\":\"getOperatorOptedUSDValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"}],\"name\":\"getOperatorTaskResponse\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"operatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"taskResponseHash\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"taskResponse\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsSignature\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"taskContractAddress\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"phase\",\"type\":\"uint8\"}],\"internalType\":\"structTaskResultInfo\",\"name\":\"taskResultInfo\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"}],\"name\":\"getOperatorTaskResponseList\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"taskContractAddress\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"operatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"taskResponseHash\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"taskResponse\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsSignature\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"power\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"phase\",\"type\":\"uint8\"}],\"internalType\":\"structOperatorResInfo[]\",\"name\":\"operatorResInfo\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"avsAddress\",\"type\":\"address\"}],\"name\":\"getOptInOperators\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"avsAddr\",\"type\":\"address\"}],\"name\":\"getRegisteredPubkey\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"}],\"name\":\"getTaskInfo\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"taskContractAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"hash\",\"type\":\"bytes\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"taskResponsePeriod\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"taskStatisticalPeriod\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"taskChallengePeriod\",\"type\":\"uint64\"},{\"internalType\":\"uint8\",\"name\":\"thresholdPercentage\",\"type\":\"uint8\"},{\"internalType\":\"uint64\",\"name\":\"startingEpoch\",\"type\":\"uint64\"},{\"internalType\":\"string\",\"name\":\"actualThreshold\",\"type\":\"string\"},{\"internalType\":\"address[]\",\"name\":\"optInOperators\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"signedOperators\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"noSignedOperators\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"errSignedOperators\",\"type\":\"address[]\"},{\"internalType\":\"string\",\"name\":\"taskTotalPower\",\"type\":\"string\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"power\",\"type\":\"uint256\"}],\"internalType\":\"structOperatorActivePower[]\",\"name\":\"operatorActivePower\",\"type\":\"tuple[]\"},{\"internalType\":\"bool\",\"name\":\"isExpected\",\"type\":\"bool\"},{\"internalType\":\"address[]\",\"name\":\"eligibleRewardOperators\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"eligibleSlashOperators\",\"type\":\"address[]\"}],\"internalType\":\"structTaskInfo\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isOperator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"arr1\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"arr2\",\"type\":\"address[]\"}],\"name\":\"mergeArrays\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"bytes\",\"name\":\"taskResponse\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsSignature\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"taskContractAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"phase\",\"type\":\"uint8\"}],\"name\":\"operatorSubmitTask\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"taskId\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"numberToBeSquared\",\"type\":\"uint64\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"taskContractAddress\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"operatorAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"taskResponseHash\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"taskResponse\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsSignature\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"power\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"phase\",\"type\":\"uint8\"}],\"internalType\":\"structOperatorResInfo[]\",\"name\":\"infos\",\"type\":\"tuple[]\"},{\"internalType\":\"address[]\",\"name\":\"signedOperators\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"noSignedOperators\",\"type\":\"address[]\"},{\"internalType\":\"string\",\"name\":\"taskTotalPower\",\"type\":\"string\"}],\"internalType\":\"structAvsServiceContract.ChallengeReq\",\"name\":\"req\",\"type\":\"tuple\"}],\"name\":\"raiseAndResolveChallenge\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"avsName\",\"type\":\"string\"},{\"internalType\":\"uint64\",\"name\":\"minStakeAmount\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"slashAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"rewardAddress\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"avsOwnerAddresses\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"whitelistAddresses\",\"type\":\"address[]\"},{\"internalType\":\"string[]\",\"name\":\"assetIDs\",\"type\":\"string[]\"},{\"internalType\":\"uint64\",\"name\":\"avsUnbondingPeriod\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"minSelfDelegation\",\"type\":\"uint64\"},{\"internalType\":\"string\",\"name\":\"epochIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint64\",\"name\":\"miniOptInOperators\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"minTotalStakeAmount\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"avsRewardProportion\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"avsSlashProportion\",\"type\":\"uint64\"}],\"internalType\":\"structAVSParams\",\"name\":\"params\",\"type\":\"tuple\"}],\"name\":\"registerAVS\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"avsAddr\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"pubKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"pubKeyRegistrationSignature\",\"type\":\"bytes\"}],\"name\":\"registerBLSPublicKey\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registerOperatorToAVS\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"taskID\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"numberSquared\",\"type\":\"uint64\"}],\"internalType\":\"structAvsServiceContract.TaskResponse\",\"name\":\"response\",\"type\":\"tuple\"}],\"name\":\"serializeTaskResponse\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"avsName\",\"type\":\"string\"},{\"internalType\":\"uint64\",\"name\":\"minStakeAmount\",\"type\":\"uint64\"},{\"internalType\":\"address\",\"name\":\"taskAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"slashAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"rewardAddress\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"avsOwnerAddresses\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"whitelistAddresses\",\"type\":\"address[]\"},{\"internalType\":\"string[]\",\"name\":\"assetIDs\",\"type\":\"string[]\"},{\"internalType\":\"uint64\",\"name\":\"avsUnbondingPeriod\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"minSelfDelegation\",\"type\":\"uint64\"},{\"internalType\":\"string\",\"name\":\"epochIdentifier\",\"type\":\"string\"},{\"internalType\":\"uint64\",\"name\":\"miniOptInOperators\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"minTotalStakeAmount\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"avsRewardProportion\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"avsSlashProportion\",\"type\":\"uint64\"}],\"internalType\":\"structAVSParams\",\"name\":\"params\",\"type\":\"tuple\"}],\"name\":\"updateAVS\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	Bin: "0x6080604052348015600f57600080fd5b50600080546001600160a01b03191633179055613070806100316000396000f3fe608060405234801561001057600080fd5b50600436106101585760003560e01c80638ceba7e9116100c3578063dcf61b2c1161007c578063dcf61b2c14610369578063de16bf461461037c578063e093841414610384578063e2906f3d14610397578063e36c41b0146103b7578063e56c2898146101d857600080fd5b80638ceba7e9146102d55780638da5cb5b146102e8578063992907fb146102fb5780639943aa2714610321578063b6f64d2a14610341578063c208dd991461036157600080fd5b80633a72b900116101155780633a72b900146102255780634d568f24146102385780635d9e941f146102595780635e3855ae1461026c5780636d6ac37f146102975780636d70f7ae146102c257600080fd5b80630b70f3221461015d5780630d332e171461018557806316395dc4146101a55780631d4c8007146101c557806320c46e46146101d857806326135e9d14610212575b600080fd5b61017061016b3660046113b5565b6103ca565b60405190151581526020015b60405180910390f35b610198610193366004611587565b61043e565b60405161017c9190611633565b6101b86101b3366004611666565b610571565b60405161017c9190611701565b6101986101d33660046117ae565b61065c565b6101eb6101e6366004611846565b6106cd565b6040805182516001600160401b03908116825260209384015116928101929092520161017c565b6101706102203660046118dc565b61071e565b6101706102333660046113b5565b6107a6565b61024b610246366004611988565b6107cf565b60405190815260200161017c565b6101706102673660046119c1565b610846565b61027f61027a366004611a3a565b6108c2565b6040516001600160401b03909116815260200161017c565b6102aa6102a5366004611ad4565b610aa8565b6040516001600160a01b03909116815260200161017c565b6101706102d03660046117ae565b610b24565b6101706102e3366004611c6a565b610b6f565b6000546102aa906001600160a01b031681565b61030e610309366004611846565b610ef3565b60405160079190910b815260200161017c565b61033461032f366004611988565b610f5e565b60405161017c9190611d8d565b61035461034f366004611ad4565b610fd7565b60405161017c9190611da0565b610170611057565b61024b6103773660046117ae565b6110c0565b61017061112f565b6103346103923660046117ae565b611159565b6103aa6103a5366004611ad4565b6111a5565b60405161017c9190611ef8565b6103346103c5366004612103565b6112f5565b6040516305b8799160e11b8152600090819061090190630b70f322906103f490869060040161229f565b6020604051808303816000875af1158015610413573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061043791906124c6565b9392505050565b606060008251845161045091906124f7565b90506000816001600160401b0381111561046c5761046c6113f0565b604051908082528060200260200182016040528015610495578160200160208202803683370190505b5090506000805b86518110156104fe578681815181106104b7576104b761250a565b60200260200101518383815181106104d1576104d161250a565b6001600160a01b0390921660209283029190910190910152816104f381612520565b92505060010161049c565b5060005b85518110156105645785818151811061051d5761051d61250a565b60200260200101518383815181106105375761053761250a565b6001600160a01b03909216602092830291909101909101528161055981612520565b925050600101610502565b5090925050505b92915050565b6105cf6040518060e0016040528060006001600160a01b0316815260200160608152602001606081526020016060815260200160006001600160a01b0316815260200160006001600160401b03168152602001600060ff1681525090565b60405163058e577160e21b81526001600160a01b038086166004830152841660248201526001600160401b0383166044820152610901906316395dc490606401600060405180830381865afa15801561062c573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f1916820160405261065491908101906125a1565b949350505050565b604051631d4c800760e01b81526001600160a01b038216600482015260609061090190631d4c800790602401600060405180830381865afa1580156106a5573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f1916820160405261056b9190810190612711565b6040805180820190915260008082526020820152600080838060200190518101906106f89190612745565b604080518082019091526001600160401b03928316815291166020820152949350505050565b60405163046d13b160e11b81526000908190610901906308da2762906107569033908d908d908d908d908d908d908d90600401612774565b6020604051808303816000875af1158015610775573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061079991906124c6565b9998505050505050505050565b604051623a72b960e81b8152600090819061090190633a72b900906103f490869060040161229f565b604051631355a3c960e21b81526001600160a01b03808416600483015282166024820152600090819061090190634d568f2490604401602060405180830381865afa158015610822573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061065491906127e4565b6040516350175e0560e11b815260009081906109019063a02ebc0a906108769033908990899089906004016127fd565b6020604051808303816000875af1158015610895573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108b991906124c6565b95945050505050565b6040805160e0810182526000602082018190528882526001600160401b03888116938301939093528683166060830152858316608083015291831660c082015260ff841660a08201819052606410156109735760405162461bcd60e51b815260206004820152602860248201527f546865207468726573686f6c642063616e6e6f7420626520677265617465722060448201526707468616e203130360c41b60648201526084015b60405180910390fd5b60006109016001600160a01b0316630cfce6ef338b856040516020016109999190612846565b60408051601f19818403018152828252805160209182012090830152016040516020818303038152906040528b8b8b8b6040518863ffffffff1660e01b81526004016109eb97969594939291906128e1565b6020604051808303816000875af1158015610a0a573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a2e919061295c565b6001600160401b0381166020840181905283516040808601516060870151608088015160a089015160c08a015194519798507f4dfd104b58200242cb7c78a0b813d73b03ff98d5778539c1e2a942c2e0712de497610a9497963396909594939291612979565b60405180910390a198975050505050505050565b604051636d6ac37f60e01b81526001600160a01b03831660048201526001600160401b038216602482015260009061090190636d6ac37f90604401602060405180830381865afa158015610b00573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104379190612a01565b6040516336b87bd760e11b81526001600160a01b0382166004820152600090819061090190636d70f7ae90602401602060405180830381865afa158015610413573d6000803e3d6000fd5b805160608201515160009190610bda5760405162461bcd60e51b815260206004820152602a60248201527f7461736b526573706f6e7365206c656e677468206d75737420626520677265616044820152690746572207468616e20360b41b606482015260840161096a565b600080610bea8560c0015161133d565b905060008560800151516001600160401b03811115610c0b57610c0b6113f0565b604051908082528060200260200182016040528015610c34578160200160208202803683370190505b50905060008660a0015151876080015151610c4f91906124f7565b6001600160401b03811115610c6657610c666113f0565b604051908082528060200260200182016040528015610c8f578160200160208202803683370190505b509050600080600089604001518a60400151610cab9190612a1e565b905060005b8a6060015151811015610de75760008b606001518281518110610cd557610cd561250a565b60200260200101516040015190506000610d0f8d606001518481518110610cfe57610cfe61250a565b6020026020010151608001516106cd565b60208101519091506001600160401b038581169116148015610d9d57828988610d3781612520565b995081518110610d4957610d4961250a565b60200260200101906001600160a01b031690816001600160a01b0316815250508d606001518481518110610d7f57610d7f61250a565b602002602001015160c001518b610d9691906124f7565b9a50610ddc565b828887610da981612520565b985081518110610dbb57610dbb61250a565b60200260200101906001600160a01b031690816001600160a01b0316815250505b505050600101610cb0565b50610df6848b60a0015161043e565b50600086610e05896064612a47565b610e0f9190612a5e565b90507f8fb75f3b1e626a6edd812663a822ecd29a655aecbe0663810c1ef8c76292357b898c60200151604051610e639291906001600160401b039290921682526001600160a01b0316602082015260400190565b60405180910390a160208b0151604051636e42641560e11b81526109019163dc84c82a91610ea19133918e919087906001908e908e90600401612a80565b6020604051808303816000875af1158015610ec0573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ee491906124c6565b9b9a5050505050505050505050565b60405163992907fb60e01b815260009081906109019063992907fb90610f1d908690600401611d8d565b602060405180830381865afa158015610f3a573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104379190612aec565b604051639943aa2760e01b81526001600160a01b0380841660048301528216602482015260609061090190639943aa2790604401600060405180830381865afa158015610faf573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526104379190810190612b0f565b604051635b7b269560e11b81526001600160a01b03831660048201526001600160401b03821660248201526060906109019063b6f64d2a90604401600060405180830381865afa15801561102f573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526104379190810190612b43565b60405163d7a2398b60e01b815233600482015260009081906109019063d7a2398b906024015b6020604051808303816000875af115801561109c573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061056b91906124c6565b60405163373d86cb60e21b81526001600160a01b038216600482015260009081906109019063dcf61b2c90602401602060405180830381865afa15801561110b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061043791906127e4565b6040516351b27a6d60e11b815233600482015260009081906109019063a364f4da9060240161107d565b604051633824e10560e21b81526001600160a01b03821660048201526060906000906109019063e093841490602401600060405180830381865afa158015610faf573d6000803e3d6000fd5b61127560405180610260016040528060006001600160a01b03168152602001606081526020016060815260200160006001600160401b0316815260200160006001600160401b0316815260200160006001600160401b0316815260200160006001600160401b03168152602001600060ff16815260200160006001600160401b031681526020016060815260200160608152602001606081526020016060815260200160608152602001606081526020016060815260200160001515815260200160608152602001606081525090565b60405163e2906f3d60e01b81526001600160a01b03841660048201526001600160401b03831660248201526000906109019063e2906f3d90604401600060405180830381865afa1580156112cd573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526106549190810190612d6b565b6060816000015182602001516040516020016113279291906001600160401b0392831681529116602082015260400190565b6040516020818303038152906040529050919050565b60008181805b82518110156113ad5760008382815181106113605761136061250a565b016020015160f81c90506030811080159061137c575060398111155b156113a45761138c603082613027565b61139784600a612a47565b6113a191906124f7565b92505b50600101611343565b509392505050565b6000602082840312156113c757600080fd5b81356001600160401b038111156113dd57600080fd5b8201610200818503121561043757600080fd5b634e487b7160e01b600052604160045260246000fd5b60405161010081016001600160401b0381118282101715611429576114296113f0565b60405290565b60405160e081016001600160401b0381118282101715611429576114296113f0565b604080519081016001600160401b0381118282101715611429576114296113f0565b60405161026081016001600160401b0381118282101715611429576114296113f0565b604051601f8201601f191681016001600160401b03811182821017156114be576114be6113f0565b604052919050565b60006001600160401b038211156114df576114df6113f0565b5060051b60200190565b6001600160a01b03811681146114fe57600080fd5b50565b803561150c816114e9565b919050565b600082601f83011261152257600080fd5b8135611535611530826114c6565b611496565b8082825260208201915060208360051b86010192508583111561155757600080fd5b602085015b8381101561157d57803561156f816114e9565b83526020928301920161155c565b5095945050505050565b6000806040838503121561159a57600080fd5b82356001600160401b038111156115b057600080fd5b6115bc85828601611511565b92505060208301356001600160401b038111156115d857600080fd5b6115e485828601611511565b9150509250929050565b600081518084526020840193506020830160005b828110156116295781516001600160a01b0316865260209586019590910190600101611602565b5093949350505050565b60208152600061043760208301846115ee565b6001600160401b03811681146114fe57600080fd5b803561150c81611646565b60008060006060848603121561167b57600080fd5b8335611686816114e9565b92506020840135611696816114e9565b915060408401356116a681611646565b809150509250925092565b60005b838110156116cc5781810151838201526020016116b4565b50506000910152565b600081518084526116ed8160208601602086016116b1565b601f01601f19169290920160200192915050565b602080825282516001600160a01b03168282015282015160e060408301526000906117306101008401826116d5565b90506040840151601f1984830301606085015261174d82826116d5565b9150506060840151601f1984830301608085015261176b82826116d5565b91505060018060a01b0360808501511660a084015260a084015161179a60c08501826001600160401b03169052565b5060c084015160ff811660e08501526113ad565b6000602082840312156117c057600080fd5b8135610437816114e9565b60006001600160401b038211156117e4576117e46113f0565b50601f01601f191660200190565b600082601f83011261180357600080fd5b8135602083016000611817611530846117cb565b905082815285838301111561182b57600080fd5b82826020830137600092810160200192909252509392505050565b60006020828403121561185857600080fd5b81356001600160401b0381111561186e57600080fd5b610654848285016117f2565b60008083601f84011261188c57600080fd5b5081356001600160401b038111156118a357600080fd5b6020830191508360208285010111156118bb57600080fd5b9250929050565b60ff811681146114fe57600080fd5b803561150c816118c2565b600080600080600080600060a0888a0312156118f757600080fd5b873561190281611646565b965060208801356001600160401b0381111561191d57600080fd5b6119298a828b0161187a565b90975095505060408801356001600160401b0381111561194857600080fd5b6119548a828b0161187a565b9095509350506060880135611968816114e9565b91506080880135611978816118c2565b8091505092959891949750929550565b6000806040838503121561199b57600080fd5b82356119a6816114e9565b915060208301356119b6816114e9565b809150509250929050565b6000806000606084860312156119d657600080fd5b83356119e1816114e9565b925060208401356001600160401b038111156119fc57600080fd5b611a08868287016117f2565b92505060408401356001600160401b03811115611a2457600080fd5b611a30868287016117f2565b9150509250925092565b60008060008060008060c08789031215611a5357600080fd5b86356001600160401b03811115611a6957600080fd5b611a7589828a016117f2565b9650506020870135611a8681611646565b94506040870135611a9681611646565b93506060870135611aa681611646565b92506080870135611ab6816118c2565b915060a0870135611ac681611646565b809150509295509295509295565b60008060408385031215611ae757600080fd5b8235611af2816114e9565b915060208301356119b681611646565b600082601f830112611b1357600080fd5b8135611b21611530826114c6565b8082825260208201915060208360051b860101925085831115611b4357600080fd5b602085015b8381101561157d5780356001600160401b03811115611b6657600080fd5b8601610100818903601f19011215611b7d57600080fd5b611b85611406565b611b9160208301611501565b8152611b9f6040830161165b565b6020820152611bb060608301611501565b604082015260808201356001600160401b03811115611bce57600080fd5b611bdd8a6020838601016117f2565b60608301525060a08201356001600160401b03811115611bfc57600080fd5b611c0b8a6020838601016117f2565b60808301525060c08201356001600160401b03811115611c2a57600080fd5b611c398a6020838601016117f2565b60a08301525060e082013560c0820152611c5661010083016118d1565b60e082015284525060209283019201611b48565b600060208284031215611c7c57600080fd5b81356001600160401b03811115611c9257600080fd5b820160e08185031215611ca457600080fd5b611cac61142f565b611cb58261165b565b8152611cc360208301611501565b6020820152611cd46040830161165b565b604082015260608201356001600160401b03811115611cf257600080fd5b611cfe86828501611b02565b60608301525060808201356001600160401b03811115611d1d57600080fd5b611d2986828501611511565b60808301525060a08201356001600160401b03811115611d4857600080fd5b611d5486828501611511565b60a08301525060c08201356001600160401b03811115611d7357600080fd5b611d7f868285016117f2565b60c083015250949350505050565b60208152600061043760208301846116d5565b6000602082016020835280845180835260408501915060408160051b86010192506020860160005b82811015611ea557868503603f19018452815180516001600160a01b031686526020810151611e0260208801826001600160401b03169052565b506040810151611e1d60408801826001600160a01b03169052565b5060608101516101006060880152611e396101008801826116d5565b905060808201518782036080890152611e5282826116d5565b91505060a082015187820360a0890152611e6c82826116d5565b91505060c082015160c088015260e08201519150611e8f60e088018360ff169052565b9550506020938401939190910190600101611dc8565b50929695505050505050565b600081518084526020840193506020830160005b8281101561162957815180516001600160a01b031687526020908101518188015260409096019590910190600101611ec5565b60208152611f126020820183516001600160a01b03169052565b600060208301516102606040840152611f2f6102808401826116d5565b90506040840151601f19848303016060850152611f4c82826116d5565b9150506060840151611f6960808501826001600160401b03169052565b5060808401516001600160401b03811660a08501525060a08401516001600160401b03811660c08501525060c08401516001600160401b03811660e08501525060e084015160ff8116610100850152506101008401516001600160401b03811661012085015250610120840151838203601f1901610140850152611fed82826116d5565b915050610140840151601f198483030161016085015261200d82826115ee565b915050610160840151601f198483030161018085015261202d82826115ee565b915050610180840151601f19848303016101a085015261204d82826115ee565b9150506101a0840151601f19848303016101c085015261206d82826115ee565b9150506101c0840151601f19848303016101e085015261208d82826116d5565b9150506101e0840151601f19848303016102008501526120ad8282611eb1565b9150506102008401516120c561022085018215159052565b50610220840151838203601f19016102408501526120e382826115ee565b915050610240840151601f19848303016102608501526108b982826115ee565b6000604082840312801561211657600080fd5b5061211f611451565b823561212a81611646565b8152602083013561213a81611646565b60208201529392505050565b6000808335601e1984360301811261215d57600080fd5b83016020810192503590506001600160401b0381111561217c57600080fd5b8036038213156118bb57600080fd5b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b6000808335601e198436030181126121cb57600080fd5b83016020810192503590506001600160401b038111156121ea57600080fd5b8060051b36038213156118bb57600080fd5b81835260208301925060008160005b8481101561162957813561221e816114e9565b6001600160a01b03168652602095860195919091019060010161220b565b60008383855260208501945060208460051b8201018360005b8681101561229357838303601f190188526122708287612146565b61227b85828461218b565b60209a8b019a90955093909301925050600101612255565b50909695505050505050565b602081526122c0602082016122b384611501565b6001600160a01b03169052565b60006122cf6020840184612146565b61020060408501526122e66102208501828461218b565b9150506122f56040850161165b565b6001600160401b03811660608501525061231160608501611501565b6001600160a01b03811660808501525061232d60808501611501565b6001600160a01b03811660a08501525061234960a08501611501565b6001600160a01b03811660c08501525061236660c08501856121b4565b848303601f190160e086015261237d8382846121fc565b9250505061238e60e08501856121b4565b848303601f19016101008601526123a68382846121fc565b925050506123b86101008501856121b4565b848303601f19016101208601526123d083828461223c565b925050506123e1610120850161165b565b6001600160401b038116610140850152506123ff610140850161165b565b6001600160401b0381166101608501525061241e610160850185612146565b848303601f190161018086015261243683828461218b565b92505050612447610180850161165b565b6001600160401b0381166101a0850152506124656101a0850161165b565b6001600160401b0381166101c0850152506124836101c0850161165b565b6001600160401b0381166101e0850152506124a16101e0850161165b565b6001600160401b0381166102008501526113ad565b8051801515811461150c57600080fd5b6000602082840312156124d857600080fd5b610437826124b6565b634e487b7160e01b600052601160045260246000fd5b8082018082111561056b5761056b6124e1565b634e487b7160e01b600052603260045260246000fd5b600060018201612532576125326124e1565b5060010190565b805161150c816114e9565b600082601f83011261255557600080fd5b8151602083016000612569611530846117cb565b905082815285838301111561257d57600080fd5b6108b98360208301846116b1565b805161150c81611646565b805161150c816118c2565b6000602082840312156125b357600080fd5b81516001600160401b038111156125c957600080fd5b820160e081850312156125db57600080fd5b6125e361142f565b6125ec82612539565b815260208201516001600160401b0381111561260757600080fd5b61261386828501612544565b60208301525060408201516001600160401b0381111561263257600080fd5b61263e86828501612544565b60408301525060608201516001600160401b0381111561265d57600080fd5b61266986828501612544565b60608301525061267b60808301612539565b608082015261268c60a0830161258b565b60a082015261269d60c08301612596565b60c0820152949350505050565b600082601f8301126126bb57600080fd5b81516126c9611530826114c6565b8082825260208201915060208360051b8601019250858311156126eb57600080fd5b602085015b8381101561157d578051612703816114e9565b8352602092830192016126f0565b60006020828403121561272357600080fd5b81516001600160401b0381111561273957600080fd5b610654848285016126aa565b6000806040838503121561275857600080fd5b825161276381611646565b60208401519092506119b681611646565b6001600160a01b03891681526001600160401b038816602082015260c0604082018190526000906127a8908301888a61218b565b82810360608401526127bb81878961218b565b6001600160a01b03959095166080840152505060ff9190911660a0909101529695505050505050565b6000602082840312156127f657600080fd5b5051919050565b6001600160a01b03858116825284166020820152608060408201819052600090612829908301856116d5565b828103606084015261283b81856116d5565b979650505050505050565b602081526000825160e060208401526128636101008401826116d5565b90506001600160401b0360208501511660408401526001600160401b0360408501511660608401526001600160401b03606085015116608084015260808401516128b860a08501826001600160401b03169052565b5060a084015160ff811660c08501525060c08401516001600160401b03811660e08501526113ad565b6001600160a01b038816815260e060208201819052600090612905908301896116d5565b828103604084015261291781896116d5565b9150506001600160401b03861660608301526001600160401b038516608083015260ff841660a08301526001600160401b03831660c083015298975050505050505050565b60006020828403121561296e57600080fd5b815161043781611646565b6001600160401b03891681526001600160a01b0388166020820152610100604082018190526000906129ad908301896116d5565b90506001600160401b03871660608301526001600160401b03861660808301526001600160401b03851660a083015260ff841660c08301526001600160401b03831660e08301529998505050505050505050565b600060208284031215612a1357600080fd5b8151610437816114e9565b6001600160401b038181168382160290811690818114612a4057612a406124e1565b5092915050565b808202811582820484141761056b5761056b6124e1565b600082612a7b57634e487b7160e01b600052601260045260246000fd5b500490565b6001600160a01b0388811682526001600160401b03881660208301528616604082015260ff85166060820152831515608082015260e060a08201819052600090612acc908301856115ee565b82810360c0840152612ade81856115ee565b9a9950505050505050505050565b600060208284031215612afe57600080fd5b81518060070b811461043757600080fd5b600060208284031215612b2157600080fd5b81516001600160401b03811115612b3757600080fd5b61065484828501612544565b600060208284031215612b5557600080fd5b81516001600160401b03811115612b6b57600080fd5b8201601f81018413612b7c57600080fd5b8051612b8a611530826114c6565b8082825260208201915060208360051b850101925086831115612bac57600080fd5b602084015b83811015612cd35780516001600160401b03811115612bcf57600080fd5b8501610100818a03601f19011215612be657600080fd5b612bee611406565b612bfa60208301612539565b8152612c086040830161258b565b6020820152612c1960608301612539565b604082015260808201516001600160401b03811115612c3757600080fd5b612c468b602083860101612544565b60608301525060a08201516001600160401b03811115612c6557600080fd5b612c748b602083860101612544565b60808301525060c08201516001600160401b03811115612c9357600080fd5b612ca28b602083860101612544565b60a08301525060e082015160c0820152612cbf6101008301612596565b60e082015284525060209283019201612bb1565b509695505050505050565b600082601f830112612cef57600080fd5b8151612cfd611530826114c6565b8082825260208201915060208360061b860101925085831115612d1f57600080fd5b602085015b8381101561157d5760408188031215612d3c57600080fd5b612d44611451565b8151612d4f816114e9565b8152602082810151818301529084529290920191604001612d24565b600060208284031215612d7d57600080fd5b81516001600160401b03811115612d9357600080fd5b82016102608185031215612da657600080fd5b612dae611473565b612db782612539565b815260208201516001600160401b03811115612dd257600080fd5b612dde86828501612544565b60208301525060408201516001600160401b03811115612dfd57600080fd5b612e0986828501612544565b604083015250612e1b6060830161258b565b6060820152612e2c6080830161258b565b6080820152612e3d60a0830161258b565b60a0820152612e4e60c0830161258b565b60c0820152612e5f60e08301612596565b60e0820152612e71610100830161258b565b6101008201526101208201516001600160401b03811115612e9157600080fd5b612e9d86828501612544565b610120830152506101408201516001600160401b03811115612ebe57600080fd5b612eca868285016126aa565b610140830152506101608201516001600160401b03811115612eeb57600080fd5b612ef7868285016126aa565b610160830152506101808201516001600160401b03811115612f1857600080fd5b612f24868285016126aa565b610180830152506101a08201516001600160401b03811115612f4557600080fd5b612f51868285016126aa565b6101a0830152506101c08201516001600160401b03811115612f7257600080fd5b612f7e86828501612544565b6101c0830152506101e08201516001600160401b03811115612f9f57600080fd5b612fab86828501612cde565b6101e083015250612fbf61020083016124b6565b6102008201526102208201516001600160401b03811115612fdf57600080fd5b612feb868285016126aa565b610220830152506102408201516001600160401b0381111561300c57600080fd5b613018868285016126aa565b61024083015250949350505050565b8181038181111561056b5761056b6124e156fea26469706673582212203d7ab90a69fd32a81c0ff9fe4d39bb96cbca2aba581cc3d646eb2a9dcffbb63164736f6c634300081e0033",
 }
 
 // ContractHimeraAvsABI is the input ABI used to generate the binding from.
 // Deprecated: Use ContractHimeraAvsMetaData.ABI instead.
 var ContractHimeraAvsABI = ContractHimeraAvsMetaData.ABI
+
+// ContractHimeraAvsBin is the compiled bytecode used for deploying new contracts.
+// Deprecated: Use ContractHimeraAvsMetaData.Bin instead.
+var ContractHimeraAvsBin = ContractHimeraAvsMetaData.Bin
+
+// DeployContractHimeraAvs deploys a new Ethereum contract, binding an instance of ContractHimeraAvs to it.
+func DeployContractHimeraAvs(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *ContractHimeraAvs, error) {
+	parsed, err := ContractHimeraAvsMetaData.GetAbi()
+	if err != nil {
+		return common.Address{}, nil, nil, err
+	}
+	if parsed == nil {
+		return common.Address{}, nil, nil, errors.New("GetABI returned nil")
+	}
+
+	address, tx, contract, err := bind.DeployContract(auth, *parsed, common.FromHex(ContractHimeraAvsBin), backend)
+	if err != nil {
+		return common.Address{}, nil, nil, err
+	}
+	return address, tx, &ContractHimeraAvs{ContractHimeraAvsCaller: ContractHimeraAvsCaller{contract: contract}, ContractHimeraAvsTransactor: ContractHimeraAvsTransactor{contract: contract}, ContractHimeraAvsFilterer: ContractHimeraAvsFilterer{contract: contract}}, nil
+}
 
 // ContractHimeraAvs is an auto generated Go binding around an Ethereum contract.
 type ContractHimeraAvs struct {
@@ -237,12 +291,74 @@ func (_ContractHimeraAvs *ContractHimeraAvsTransactorRaw) Transact(opts *bind.Tr
 	return _ContractHimeraAvs.Contract.contract.Transact(opts, method, params...)
 }
 
-// UPGRADEINTERFACEVERSION is a free data retrieval call binding the contract method 0xad3cb1cc.
+// DecodeTaskRes is a free data retrieval call binding the contract method 0xe56c2898.
 //
-// Solidity: function UPGRADE_INTERFACE_VERSION() view returns(string)
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) UPGRADEINTERFACEVERSION(opts *bind.CallOpts) (string, error) {
+// Solidity: function decodeTaskRes(bytes encodedData) pure returns((uint64,uint64))
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) DecodeTaskRes(opts *bind.CallOpts, encodedData []byte) (AvsServiceContractTaskResponse, error) {
 	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "UPGRADE_INTERFACE_VERSION")
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "decodeTaskRes", encodedData)
+
+	if err != nil {
+		return *new(AvsServiceContractTaskResponse), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(AvsServiceContractTaskResponse)).(*AvsServiceContractTaskResponse)
+
+	return out0, err
+
+}
+
+// DecodeTaskRes is a free data retrieval call binding the contract method 0xe56c2898.
+//
+// Solidity: function decodeTaskRes(bytes encodedData) pure returns((uint64,uint64))
+func (_ContractHimeraAvs *ContractHimeraAvsSession) DecodeTaskRes(encodedData []byte) (AvsServiceContractTaskResponse, error) {
+	return _ContractHimeraAvs.Contract.DecodeTaskRes(&_ContractHimeraAvs.CallOpts, encodedData)
+}
+
+// DecodeTaskRes is a free data retrieval call binding the contract method 0xe56c2898.
+//
+// Solidity: function decodeTaskRes(bytes encodedData) pure returns((uint64,uint64))
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) DecodeTaskRes(encodedData []byte) (AvsServiceContractTaskResponse, error) {
+	return _ContractHimeraAvs.Contract.DecodeTaskRes(&_ContractHimeraAvs.CallOpts, encodedData)
+}
+
+// DeserializeTaskResponse is a free data retrieval call binding the contract method 0x20c46e46.
+//
+// Solidity: function deserializeTaskResponse(bytes data) pure returns((uint64,uint64))
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) DeserializeTaskResponse(opts *bind.CallOpts, data []byte) (AvsServiceContractTaskResponse, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "deserializeTaskResponse", data)
+
+	if err != nil {
+		return *new(AvsServiceContractTaskResponse), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(AvsServiceContractTaskResponse)).(*AvsServiceContractTaskResponse)
+
+	return out0, err
+
+}
+
+// DeserializeTaskResponse is a free data retrieval call binding the contract method 0x20c46e46.
+//
+// Solidity: function deserializeTaskResponse(bytes data) pure returns((uint64,uint64))
+func (_ContractHimeraAvs *ContractHimeraAvsSession) DeserializeTaskResponse(data []byte) (AvsServiceContractTaskResponse, error) {
+	return _ContractHimeraAvs.Contract.DeserializeTaskResponse(&_ContractHimeraAvs.CallOpts, data)
+}
+
+// DeserializeTaskResponse is a free data retrieval call binding the contract method 0x20c46e46.
+//
+// Solidity: function deserializeTaskResponse(bytes data) pure returns((uint64,uint64))
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) DeserializeTaskResponse(data []byte) (AvsServiceContractTaskResponse, error) {
+	return _ContractHimeraAvs.Contract.DeserializeTaskResponse(&_ContractHimeraAvs.CallOpts, data)
+}
+
+// GetAVSEpochIdentifier is a free data retrieval call binding the contract method 0xe0938414.
+//
+// Solidity: function getAVSEpochIdentifier(address avsAddr) view returns(string)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetAVSEpochIdentifier(opts *bind.CallOpts, avsAddr common.Address) (string, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getAVSEpochIdentifier", avsAddr)
 
 	if err != nil {
 		return *new(string), err
@@ -254,26 +370,57 @@ func (_ContractHimeraAvs *ContractHimeraAvsCaller) UPGRADEINTERFACEVERSION(opts 
 
 }
 
-// UPGRADEINTERFACEVERSION is a free data retrieval call binding the contract method 0xad3cb1cc.
+// GetAVSEpochIdentifier is a free data retrieval call binding the contract method 0xe0938414.
 //
-// Solidity: function UPGRADE_INTERFACE_VERSION() view returns(string)
-func (_ContractHimeraAvs *ContractHimeraAvsSession) UPGRADEINTERFACEVERSION() (string, error) {
-	return _ContractHimeraAvs.Contract.UPGRADEINTERFACEVERSION(&_ContractHimeraAvs.CallOpts)
+// Solidity: function getAVSEpochIdentifier(address avsAddr) view returns(string)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetAVSEpochIdentifier(avsAddr common.Address) (string, error) {
+	return _ContractHimeraAvs.Contract.GetAVSEpochIdentifier(&_ContractHimeraAvs.CallOpts, avsAddr)
 }
 
-// UPGRADEINTERFACEVERSION is a free data retrieval call binding the contract method 0xad3cb1cc.
+// GetAVSEpochIdentifier is a free data retrieval call binding the contract method 0xe0938414.
 //
-// Solidity: function UPGRADE_INTERFACE_VERSION() view returns(string)
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) UPGRADEINTERFACEVERSION() (string, error) {
-	return _ContractHimeraAvs.Contract.UPGRADEINTERFACEVERSION(&_ContractHimeraAvs.CallOpts)
+// Solidity: function getAVSEpochIdentifier(address avsAddr) view returns(string)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetAVSEpochIdentifier(avsAddr common.Address) (string, error) {
+	return _ContractHimeraAvs.Contract.GetAVSEpochIdentifier(&_ContractHimeraAvs.CallOpts, avsAddr)
 }
 
-// ChallengerAddress is a free data retrieval call binding the contract method 0x82f8d845.
+// GetAVSUSDValue is a free data retrieval call binding the contract method 0xdcf61b2c.
 //
-// Solidity: function challengerAddress() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) ChallengerAddress(opts *bind.CallOpts) (common.Address, error) {
+// Solidity: function getAVSUSDValue(address avsAddr) view returns(uint256)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetAVSUSDValue(opts *bind.CallOpts, avsAddr common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "challengerAddress")
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getAVSUSDValue", avsAddr)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetAVSUSDValue is a free data retrieval call binding the contract method 0xdcf61b2c.
+//
+// Solidity: function getAVSUSDValue(address avsAddr) view returns(uint256)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetAVSUSDValue(avsAddr common.Address) (*big.Int, error) {
+	return _ContractHimeraAvs.Contract.GetAVSUSDValue(&_ContractHimeraAvs.CallOpts, avsAddr)
+}
+
+// GetAVSUSDValue is a free data retrieval call binding the contract method 0xdcf61b2c.
+//
+// Solidity: function getAVSUSDValue(address avsAddr) view returns(uint256)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetAVSUSDValue(avsAddr common.Address) (*big.Int, error) {
+	return _ContractHimeraAvs.Contract.GetAVSUSDValue(&_ContractHimeraAvs.CallOpts, avsAddr)
+}
+
+// GetChallengeInfo is a free data retrieval call binding the contract method 0x6d6ac37f.
+//
+// Solidity: function getChallengeInfo(address taskAddress, uint64 taskID) view returns(address challenger)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetChallengeInfo(opts *bind.CallOpts, taskAddress common.Address, taskID uint64) (common.Address, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getChallengeInfo", taskAddress, taskID)
 
 	if err != nil {
 		return *new(common.Address), err
@@ -285,26 +432,150 @@ func (_ContractHimeraAvs *ContractHimeraAvsCaller) ChallengerAddress(opts *bind.
 
 }
 
-// ChallengerAddress is a free data retrieval call binding the contract method 0x82f8d845.
+// GetChallengeInfo is a free data retrieval call binding the contract method 0x6d6ac37f.
 //
-// Solidity: function challengerAddress() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsSession) ChallengerAddress() (common.Address, error) {
-	return _ContractHimeraAvs.Contract.ChallengerAddress(&_ContractHimeraAvs.CallOpts)
+// Solidity: function getChallengeInfo(address taskAddress, uint64 taskID) view returns(address challenger)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetChallengeInfo(taskAddress common.Address, taskID uint64) (common.Address, error) {
+	return _ContractHimeraAvs.Contract.GetChallengeInfo(&_ContractHimeraAvs.CallOpts, taskAddress, taskID)
 }
 
-// ChallengerAddress is a free data retrieval call binding the contract method 0x82f8d845.
+// GetChallengeInfo is a free data retrieval call binding the contract method 0x6d6ac37f.
 //
-// Solidity: function challengerAddress() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) ChallengerAddress() (common.Address, error) {
-	return _ContractHimeraAvs.Contract.ChallengerAddress(&_ContractHimeraAvs.CallOpts)
+// Solidity: function getChallengeInfo(address taskAddress, uint64 taskID) view returns(address challenger)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetChallengeInfo(taskAddress common.Address, taskID uint64) (common.Address, error) {
+	return _ContractHimeraAvs.Contract.GetChallengeInfo(&_ContractHimeraAvs.CallOpts, taskAddress, taskID)
 }
 
-// GetOptInOperators is a free data retrieval call binding the contract method 0xa528113f.
+// GetCurrentEpoch is a free data retrieval call binding the contract method 0x992907fb.
 //
-// Solidity: function getOptInOperators() view returns(address[])
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetOptInOperators(opts *bind.CallOpts) ([]common.Address, error) {
+// Solidity: function getCurrentEpoch(string epochIdentifier) view returns(int64)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetCurrentEpoch(opts *bind.CallOpts, epochIdentifier string) (int64, error) {
 	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "getOptInOperators")
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getCurrentEpoch", epochIdentifier)
+
+	if err != nil {
+		return *new(int64), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(int64)).(*int64)
+
+	return out0, err
+
+}
+
+// GetCurrentEpoch is a free data retrieval call binding the contract method 0x992907fb.
+//
+// Solidity: function getCurrentEpoch(string epochIdentifier) view returns(int64)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetCurrentEpoch(epochIdentifier string) (int64, error) {
+	return _ContractHimeraAvs.Contract.GetCurrentEpoch(&_ContractHimeraAvs.CallOpts, epochIdentifier)
+}
+
+// GetCurrentEpoch is a free data retrieval call binding the contract method 0x992907fb.
+//
+// Solidity: function getCurrentEpoch(string epochIdentifier) view returns(int64)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetCurrentEpoch(epochIdentifier string) (int64, error) {
+	return _ContractHimeraAvs.Contract.GetCurrentEpoch(&_ContractHimeraAvs.CallOpts, epochIdentifier)
+}
+
+// GetOperatorOptedUSDValue is a free data retrieval call binding the contract method 0x4d568f24.
+//
+// Solidity: function getOperatorOptedUSDValue(address avsAddr, address operatorAddr) view returns(uint256)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetOperatorOptedUSDValue(opts *bind.CallOpts, avsAddr common.Address, operatorAddr common.Address) (*big.Int, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getOperatorOptedUSDValue", avsAddr, operatorAddr)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetOperatorOptedUSDValue is a free data retrieval call binding the contract method 0x4d568f24.
+//
+// Solidity: function getOperatorOptedUSDValue(address avsAddr, address operatorAddr) view returns(uint256)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetOperatorOptedUSDValue(avsAddr common.Address, operatorAddr common.Address) (*big.Int, error) {
+	return _ContractHimeraAvs.Contract.GetOperatorOptedUSDValue(&_ContractHimeraAvs.CallOpts, avsAddr, operatorAddr)
+}
+
+// GetOperatorOptedUSDValue is a free data retrieval call binding the contract method 0x4d568f24.
+//
+// Solidity: function getOperatorOptedUSDValue(address avsAddr, address operatorAddr) view returns(uint256)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetOperatorOptedUSDValue(avsAddr common.Address, operatorAddr common.Address) (*big.Int, error) {
+	return _ContractHimeraAvs.Contract.GetOperatorOptedUSDValue(&_ContractHimeraAvs.CallOpts, avsAddr, operatorAddr)
+}
+
+// GetOperatorTaskResponse is a free data retrieval call binding the contract method 0x16395dc4.
+//
+// Solidity: function getOperatorTaskResponse(address taskAddress, address operator, uint64 taskID) view returns((address,string,bytes,bytes,address,uint64,uint8) taskResultInfo)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetOperatorTaskResponse(opts *bind.CallOpts, taskAddress common.Address, operator common.Address, taskID uint64) (TaskResultInfo, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getOperatorTaskResponse", taskAddress, operator, taskID)
+
+	if err != nil {
+		return *new(TaskResultInfo), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(TaskResultInfo)).(*TaskResultInfo)
+
+	return out0, err
+
+}
+
+// GetOperatorTaskResponse is a free data retrieval call binding the contract method 0x16395dc4.
+//
+// Solidity: function getOperatorTaskResponse(address taskAddress, address operator, uint64 taskID) view returns((address,string,bytes,bytes,address,uint64,uint8) taskResultInfo)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetOperatorTaskResponse(taskAddress common.Address, operator common.Address, taskID uint64) (TaskResultInfo, error) {
+	return _ContractHimeraAvs.Contract.GetOperatorTaskResponse(&_ContractHimeraAvs.CallOpts, taskAddress, operator, taskID)
+}
+
+// GetOperatorTaskResponse is a free data retrieval call binding the contract method 0x16395dc4.
+//
+// Solidity: function getOperatorTaskResponse(address taskAddress, address operator, uint64 taskID) view returns((address,string,bytes,bytes,address,uint64,uint8) taskResultInfo)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetOperatorTaskResponse(taskAddress common.Address, operator common.Address, taskID uint64) (TaskResultInfo, error) {
+	return _ContractHimeraAvs.Contract.GetOperatorTaskResponse(&_ContractHimeraAvs.CallOpts, taskAddress, operator, taskID)
+}
+
+// GetOperatorTaskResponseList is a free data retrieval call binding the contract method 0xb6f64d2a.
+//
+// Solidity: function getOperatorTaskResponseList(address taskAddress, uint64 taskID) view returns((address,uint64,address,string,bytes,bytes,uint256,uint8)[] operatorResInfo)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetOperatorTaskResponseList(opts *bind.CallOpts, taskAddress common.Address, taskID uint64) ([]OperatorResInfo, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getOperatorTaskResponseList", taskAddress, taskID)
+
+	if err != nil {
+		return *new([]OperatorResInfo), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]OperatorResInfo)).(*[]OperatorResInfo)
+
+	return out0, err
+
+}
+
+// GetOperatorTaskResponseList is a free data retrieval call binding the contract method 0xb6f64d2a.
+//
+// Solidity: function getOperatorTaskResponseList(address taskAddress, uint64 taskID) view returns((address,uint64,address,string,bytes,bytes,uint256,uint8)[] operatorResInfo)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetOperatorTaskResponseList(taskAddress common.Address, taskID uint64) ([]OperatorResInfo, error) {
+	return _ContractHimeraAvs.Contract.GetOperatorTaskResponseList(&_ContractHimeraAvs.CallOpts, taskAddress, taskID)
+}
+
+// GetOperatorTaskResponseList is a free data retrieval call binding the contract method 0xb6f64d2a.
+//
+// Solidity: function getOperatorTaskResponseList(address taskAddress, uint64 taskID) view returns((address,uint64,address,string,bytes,bytes,uint256,uint8)[] operatorResInfo)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetOperatorTaskResponseList(taskAddress common.Address, taskID uint64) ([]OperatorResInfo, error) {
+	return _ContractHimeraAvs.Contract.GetOperatorTaskResponseList(&_ContractHimeraAvs.CallOpts, taskAddress, taskID)
+}
+
+// GetOptInOperators is a free data retrieval call binding the contract method 0x1d4c8007.
+//
+// Solidity: function getOptInOperators(address avsAddress) view returns(address[])
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetOptInOperators(opts *bind.CallOpts, avsAddress common.Address) ([]common.Address, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getOptInOperators", avsAddress)
 
 	if err != nil {
 		return *new([]common.Address), err
@@ -316,57 +587,57 @@ func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetOptInOperators(opts *bind.
 
 }
 
-// GetOptInOperators is a free data retrieval call binding the contract method 0xa528113f.
+// GetOptInOperators is a free data retrieval call binding the contract method 0x1d4c8007.
 //
-// Solidity: function getOptInOperators() view returns(address[])
-func (_ContractHimeraAvs *ContractHimeraAvsSession) GetOptInOperators() ([]common.Address, error) {
-	return _ContractHimeraAvs.Contract.GetOptInOperators(&_ContractHimeraAvs.CallOpts)
+// Solidity: function getOptInOperators(address avsAddress) view returns(address[])
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetOptInOperators(avsAddress common.Address) ([]common.Address, error) {
+	return _ContractHimeraAvs.Contract.GetOptInOperators(&_ContractHimeraAvs.CallOpts, avsAddress)
 }
 
-// GetOptInOperators is a free data retrieval call binding the contract method 0xa528113f.
+// GetOptInOperators is a free data retrieval call binding the contract method 0x1d4c8007.
 //
-// Solidity: function getOptInOperators() view returns(address[])
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetOptInOperators() ([]common.Address, error) {
-	return _ContractHimeraAvs.Contract.GetOptInOperators(&_ContractHimeraAvs.CallOpts)
+// Solidity: function getOptInOperators(address avsAddress) view returns(address[])
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetOptInOperators(avsAddress common.Address) ([]common.Address, error) {
+	return _ContractHimeraAvs.Contract.GetOptInOperators(&_ContractHimeraAvs.CallOpts, avsAddress)
 }
 
-// GetTaskDefinition is a free data retrieval call binding the contract method 0xbd0d5737.
+// GetRegisteredPubkey is a free data retrieval call binding the contract method 0x9943aa27.
 //
-// Solidity: function getTaskDefinition(uint8 id) view returns((uint8,string,uint8,string))
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetTaskDefinition(opts *bind.CallOpts, id uint8) (HimeraTaskLibraryTaskDefinition, error) {
+// Solidity: function getRegisteredPubkey(address operator, address avsAddr) view returns(bytes)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetRegisteredPubkey(opts *bind.CallOpts, operator common.Address, avsAddr common.Address) ([]byte, error) {
 	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "getTaskDefinition", id)
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getRegisteredPubkey", operator, avsAddr)
 
 	if err != nil {
-		return *new(HimeraTaskLibraryTaskDefinition), err
+		return *new([]byte), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(HimeraTaskLibraryTaskDefinition)).(*HimeraTaskLibraryTaskDefinition)
+	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
 
 	return out0, err
 
 }
 
-// GetTaskDefinition is a free data retrieval call binding the contract method 0xbd0d5737.
+// GetRegisteredPubkey is a free data retrieval call binding the contract method 0x9943aa27.
 //
-// Solidity: function getTaskDefinition(uint8 id) view returns((uint8,string,uint8,string))
-func (_ContractHimeraAvs *ContractHimeraAvsSession) GetTaskDefinition(id uint8) (HimeraTaskLibraryTaskDefinition, error) {
-	return _ContractHimeraAvs.Contract.GetTaskDefinition(&_ContractHimeraAvs.CallOpts, id)
+// Solidity: function getRegisteredPubkey(address operator, address avsAddr) view returns(bytes)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetRegisteredPubkey(operator common.Address, avsAddr common.Address) ([]byte, error) {
+	return _ContractHimeraAvs.Contract.GetRegisteredPubkey(&_ContractHimeraAvs.CallOpts, operator, avsAddr)
 }
 
-// GetTaskDefinition is a free data retrieval call binding the contract method 0xbd0d5737.
+// GetRegisteredPubkey is a free data retrieval call binding the contract method 0x9943aa27.
 //
-// Solidity: function getTaskDefinition(uint8 id) view returns((uint8,string,uint8,string))
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetTaskDefinition(id uint8) (HimeraTaskLibraryTaskDefinition, error) {
-	return _ContractHimeraAvs.Contract.GetTaskDefinition(&_ContractHimeraAvs.CallOpts, id)
+// Solidity: function getRegisteredPubkey(address operator, address avsAddr) view returns(bytes)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetRegisteredPubkey(operator common.Address, avsAddr common.Address) ([]byte, error) {
+	return _ContractHimeraAvs.Contract.GetRegisteredPubkey(&_ContractHimeraAvs.CallOpts, operator, avsAddr)
 }
 
-// GetTaskInfo is a free data retrieval call binding the contract method 0xe73e8a71.
+// GetTaskInfo is a free data retrieval call binding the contract method 0xe2906f3d.
 //
-// Solidity: function getTaskInfo(uint64 taskID) view returns((address,string,bytes,uint64,uint64,uint64,uint64,uint8,uint64,string,address[],address[],address[],address[],string,(address,uint256)[],bool,address[],address[]))
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetTaskInfo(opts *bind.CallOpts, taskID uint64) (TaskInfo, error) {
+// Solidity: function getTaskInfo(address taskAddress, uint64 taskID) view returns((address,string,bytes,uint64,uint64,uint64,uint64,uint8,uint64,string,address[],address[],address[],address[],string,(address,uint256)[],bool,address[],address[]))
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetTaskInfo(opts *bind.CallOpts, taskAddress common.Address, taskID uint64) (TaskInfo, error) {
 	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "getTaskInfo", taskID)
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "getTaskInfo", taskAddress, taskID)
 
 	if err != nil {
 		return *new(TaskInfo), err
@@ -378,18 +649,80 @@ func (_ContractHimeraAvs *ContractHimeraAvsCaller) GetTaskInfo(opts *bind.CallOp
 
 }
 
-// GetTaskInfo is a free data retrieval call binding the contract method 0xe73e8a71.
+// GetTaskInfo is a free data retrieval call binding the contract method 0xe2906f3d.
 //
-// Solidity: function getTaskInfo(uint64 taskID) view returns((address,string,bytes,uint64,uint64,uint64,uint64,uint8,uint64,string,address[],address[],address[],address[],string,(address,uint256)[],bool,address[],address[]))
-func (_ContractHimeraAvs *ContractHimeraAvsSession) GetTaskInfo(taskID uint64) (TaskInfo, error) {
-	return _ContractHimeraAvs.Contract.GetTaskInfo(&_ContractHimeraAvs.CallOpts, taskID)
+// Solidity: function getTaskInfo(address taskAddress, uint64 taskID) view returns((address,string,bytes,uint64,uint64,uint64,uint64,uint8,uint64,string,address[],address[],address[],address[],string,(address,uint256)[],bool,address[],address[]))
+func (_ContractHimeraAvs *ContractHimeraAvsSession) GetTaskInfo(taskAddress common.Address, taskID uint64) (TaskInfo, error) {
+	return _ContractHimeraAvs.Contract.GetTaskInfo(&_ContractHimeraAvs.CallOpts, taskAddress, taskID)
 }
 
-// GetTaskInfo is a free data retrieval call binding the contract method 0xe73e8a71.
+// GetTaskInfo is a free data retrieval call binding the contract method 0xe2906f3d.
 //
-// Solidity: function getTaskInfo(uint64 taskID) view returns((address,string,bytes,uint64,uint64,uint64,uint64,uint8,uint64,string,address[],address[],address[],address[],string,(address,uint256)[],bool,address[],address[]))
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetTaskInfo(taskID uint64) (TaskInfo, error) {
-	return _ContractHimeraAvs.Contract.GetTaskInfo(&_ContractHimeraAvs.CallOpts, taskID)
+// Solidity: function getTaskInfo(address taskAddress, uint64 taskID) view returns((address,string,bytes,uint64,uint64,uint64,uint64,uint8,uint64,string,address[],address[],address[],address[],string,(address,uint256)[],bool,address[],address[]))
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) GetTaskInfo(taskAddress common.Address, taskID uint64) (TaskInfo, error) {
+	return _ContractHimeraAvs.Contract.GetTaskInfo(&_ContractHimeraAvs.CallOpts, taskAddress, taskID)
+}
+
+// IsOperator is a free data retrieval call binding the contract method 0x6d70f7ae.
+//
+// Solidity: function isOperator(address operator) view returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) IsOperator(opts *bind.CallOpts, operator common.Address) (bool, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "isOperator", operator)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsOperator is a free data retrieval call binding the contract method 0x6d70f7ae.
+//
+// Solidity: function isOperator(address operator) view returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) IsOperator(operator common.Address) (bool, error) {
+	return _ContractHimeraAvs.Contract.IsOperator(&_ContractHimeraAvs.CallOpts, operator)
+}
+
+// IsOperator is a free data retrieval call binding the contract method 0x6d70f7ae.
+//
+// Solidity: function isOperator(address operator) view returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) IsOperator(operator common.Address) (bool, error) {
+	return _ContractHimeraAvs.Contract.IsOperator(&_ContractHimeraAvs.CallOpts, operator)
+}
+
+// MergeArrays is a free data retrieval call binding the contract method 0x0d332e17.
+//
+// Solidity: function mergeArrays(address[] arr1, address[] arr2) pure returns(address[])
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) MergeArrays(opts *bind.CallOpts, arr1 []common.Address, arr2 []common.Address) ([]common.Address, error) {
+	var out []interface{}
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "mergeArrays", arr1, arr2)
+
+	if err != nil {
+		return *new([]common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]common.Address)).(*[]common.Address)
+
+	return out0, err
+
+}
+
+// MergeArrays is a free data retrieval call binding the contract method 0x0d332e17.
+//
+// Solidity: function mergeArrays(address[] arr1, address[] arr2) pure returns(address[])
+func (_ContractHimeraAvs *ContractHimeraAvsSession) MergeArrays(arr1 []common.Address, arr2 []common.Address) ([]common.Address, error) {
+	return _ContractHimeraAvs.Contract.MergeArrays(&_ContractHimeraAvs.CallOpts, arr1, arr2)
+}
+
+// MergeArrays is a free data retrieval call binding the contract method 0x0d332e17.
+//
+// Solidity: function mergeArrays(address[] arr1, address[] arr2) pure returns(address[])
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) MergeArrays(arr1 []common.Address, arr2 []common.Address) ([]common.Address, error) {
+	return _ContractHimeraAvs.Contract.MergeArrays(&_ContractHimeraAvs.CallOpts, arr1, arr2)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
@@ -423,438 +756,208 @@ func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) Owner() (common.Addres
 	return _ContractHimeraAvs.Contract.Owner(&_ContractHimeraAvs.CallOpts)
 }
 
-// ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
+// SerializeTaskResponse is a free data retrieval call binding the contract method 0xe36c41b0.
 //
-// Solidity: function proxiableUUID() view returns(bytes32)
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) ProxiableUUID(opts *bind.CallOpts) ([32]byte, error) {
+// Solidity: function serializeTaskResponse((uint64,uint64) response) pure returns(bytes)
+func (_ContractHimeraAvs *ContractHimeraAvsCaller) SerializeTaskResponse(opts *bind.CallOpts, response AvsServiceContractTaskResponse) ([]byte, error) {
 	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "proxiableUUID")
+	err := _ContractHimeraAvs.contract.Call(opts, &out, "serializeTaskResponse", response)
 
 	if err != nil {
-		return *new([32]byte), err
+		return *new([]byte), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
 
 	return out0, err
 
 }
 
-// ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
+// SerializeTaskResponse is a free data retrieval call binding the contract method 0xe36c41b0.
 //
-// Solidity: function proxiableUUID() view returns(bytes32)
-func (_ContractHimeraAvs *ContractHimeraAvsSession) ProxiableUUID() ([32]byte, error) {
-	return _ContractHimeraAvs.Contract.ProxiableUUID(&_ContractHimeraAvs.CallOpts)
+// Solidity: function serializeTaskResponse((uint64,uint64) response) pure returns(bytes)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) SerializeTaskResponse(response AvsServiceContractTaskResponse) ([]byte, error) {
+	return _ContractHimeraAvs.Contract.SerializeTaskResponse(&_ContractHimeraAvs.CallOpts, response)
 }
 
-// ProxiableUUID is a free data retrieval call binding the contract method 0x52d1902d.
+// SerializeTaskResponse is a free data retrieval call binding the contract method 0xe36c41b0.
 //
-// Solidity: function proxiableUUID() view returns(bytes32)
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) ProxiableUUID() ([32]byte, error) {
-	return _ContractHimeraAvs.Contract.ProxiableUUID(&_ContractHimeraAvs.CallOpts)
+// Solidity: function serializeTaskResponse((uint64,uint64) response) pure returns(bytes)
+func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) SerializeTaskResponse(response AvsServiceContractTaskResponse) ([]byte, error) {
+	return _ContractHimeraAvs.Contract.SerializeTaskResponse(&_ContractHimeraAvs.CallOpts, response)
 }
 
-// RewardManager is a free data retrieval call binding the contract method 0x0f4ef8a6.
+// CreateNewTask is a paid mutator transaction binding the contract method 0x5e3855ae.
 //
-// Solidity: function rewardManager() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) RewardManager(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "rewardManager")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
+// Solidity: function createNewTask(string name, uint64 numberToBeSquared, uint64 taskResponsePeriod, uint64 taskChallengePeriod, uint8 thresholdPercentage, uint64 taskStatisticalPeriod) returns(uint64)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactor) CreateNewTask(opts *bind.TransactOpts, name string, numberToBeSquared uint64, taskResponsePeriod uint64, taskChallengePeriod uint64, thresholdPercentage uint8, taskStatisticalPeriod uint64) (*types.Transaction, error) {
+	return _ContractHimeraAvs.contract.Transact(opts, "createNewTask", name, numberToBeSquared, taskResponsePeriod, taskChallengePeriod, thresholdPercentage, taskStatisticalPeriod)
 }
 
-// RewardManager is a free data retrieval call binding the contract method 0x0f4ef8a6.
+// CreateNewTask is a paid mutator transaction binding the contract method 0x5e3855ae.
 //
-// Solidity: function rewardManager() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsSession) RewardManager() (common.Address, error) {
-	return _ContractHimeraAvs.Contract.RewardManager(&_ContractHimeraAvs.CallOpts)
+// Solidity: function createNewTask(string name, uint64 numberToBeSquared, uint64 taskResponsePeriod, uint64 taskChallengePeriod, uint8 thresholdPercentage, uint64 taskStatisticalPeriod) returns(uint64)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) CreateNewTask(name string, numberToBeSquared uint64, taskResponsePeriod uint64, taskChallengePeriod uint64, thresholdPercentage uint8, taskStatisticalPeriod uint64) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.CreateNewTask(&_ContractHimeraAvs.TransactOpts, name, numberToBeSquared, taskResponsePeriod, taskChallengePeriod, thresholdPercentage, taskStatisticalPeriod)
 }
 
-// RewardManager is a free data retrieval call binding the contract method 0x0f4ef8a6.
+// CreateNewTask is a paid mutator transaction binding the contract method 0x5e3855ae.
 //
-// Solidity: function rewardManager() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) RewardManager() (common.Address, error) {
-	return _ContractHimeraAvs.Contract.RewardManager(&_ContractHimeraAvs.CallOpts)
-}
-
-// Slasher is a free data retrieval call binding the contract method 0xb1344271.
-//
-// Solidity: function slasher() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsCaller) Slasher(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _ContractHimeraAvs.contract.Call(opts, &out, "slasher")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// Slasher is a free data retrieval call binding the contract method 0xb1344271.
-//
-// Solidity: function slasher() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsSession) Slasher() (common.Address, error) {
-	return _ContractHimeraAvs.Contract.Slasher(&_ContractHimeraAvs.CallOpts)
-}
-
-// Slasher is a free data retrieval call binding the contract method 0xb1344271.
-//
-// Solidity: function slasher() view returns(address)
-func (_ContractHimeraAvs *ContractHimeraAvsCallerSession) Slasher() (common.Address, error) {
-	return _ContractHimeraAvs.Contract.Slasher(&_ContractHimeraAvs.CallOpts)
-}
-
-// Challenge is a paid mutator transaction binding the contract method 0xe20529ce.
-//
-// Solidity: function challenge(uint64 taskID, uint8 actualThreshold, bool isExpected, address[] eligibleRewardOperators, address[] eligibleSlashOperators) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) Challenge(opts *bind.TransactOpts, taskID uint64, actualThreshold uint8, isExpected bool, eligibleRewardOperators []common.Address, eligibleSlashOperators []common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "challenge", taskID, actualThreshold, isExpected, eligibleRewardOperators, eligibleSlashOperators)
-}
-
-// Challenge is a paid mutator transaction binding the contract method 0xe20529ce.
-//
-// Solidity: function challenge(uint64 taskID, uint8 actualThreshold, bool isExpected, address[] eligibleRewardOperators, address[] eligibleSlashOperators) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) Challenge(taskID uint64, actualThreshold uint8, isExpected bool, eligibleRewardOperators []common.Address, eligibleSlashOperators []common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.Challenge(&_ContractHimeraAvs.TransactOpts, taskID, actualThreshold, isExpected, eligibleRewardOperators, eligibleSlashOperators)
-}
-
-// Challenge is a paid mutator transaction binding the contract method 0xe20529ce.
-//
-// Solidity: function challenge(uint64 taskID, uint8 actualThreshold, bool isExpected, address[] eligibleRewardOperators, address[] eligibleSlashOperators) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) Challenge(taskID uint64, actualThreshold uint8, isExpected bool, eligibleRewardOperators []common.Address, eligibleSlashOperators []common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.Challenge(&_ContractHimeraAvs.TransactOpts, taskID, actualThreshold, isExpected, eligibleRewardOperators, eligibleSlashOperators)
-}
-
-// CreateHimeraTask is a paid mutator transaction binding the contract method 0x29c0c3e1.
-//
-// Solidity: function createHimeraTask(uint8 himeraTaskDefId, bytes taskInput) returns(uint64 imuaTaskId)
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) CreateHimeraTask(opts *bind.TransactOpts, himeraTaskDefId uint8, taskInput []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "createHimeraTask", himeraTaskDefId, taskInput)
-}
-
-// CreateHimeraTask is a paid mutator transaction binding the contract method 0x29c0c3e1.
-//
-// Solidity: function createHimeraTask(uint8 himeraTaskDefId, bytes taskInput) returns(uint64 imuaTaskId)
-func (_ContractHimeraAvs *ContractHimeraAvsSession) CreateHimeraTask(himeraTaskDefId uint8, taskInput []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.CreateHimeraTask(&_ContractHimeraAvs.TransactOpts, himeraTaskDefId, taskInput)
-}
-
-// CreateHimeraTask is a paid mutator transaction binding the contract method 0x29c0c3e1.
-//
-// Solidity: function createHimeraTask(uint8 himeraTaskDefId, bytes taskInput) returns(uint64 imuaTaskId)
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) CreateHimeraTask(himeraTaskDefId uint8, taskInput []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.CreateHimeraTask(&_ContractHimeraAvs.TransactOpts, himeraTaskDefId, taskInput)
+// Solidity: function createNewTask(string name, uint64 numberToBeSquared, uint64 taskResponsePeriod, uint64 taskChallengePeriod, uint8 thresholdPercentage, uint64 taskStatisticalPeriod) returns(uint64)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) CreateNewTask(name string, numberToBeSquared uint64, taskResponsePeriod uint64, taskChallengePeriod uint64, thresholdPercentage uint8, taskStatisticalPeriod uint64) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.CreateNewTask(&_ContractHimeraAvs.TransactOpts, name, numberToBeSquared, taskResponsePeriod, taskChallengePeriod, thresholdPercentage, taskStatisticalPeriod)
 }
 
 // DeregisterOperatorFromAVS is a paid mutator transaction binding the contract method 0xde16bf46.
 //
-// Solidity: function deregisterOperatorFromAVS() returns()
+// Solidity: function deregisterOperatorFromAVS() returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactor) DeregisterOperatorFromAVS(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _ContractHimeraAvs.contract.Transact(opts, "deregisterOperatorFromAVS")
 }
 
 // DeregisterOperatorFromAVS is a paid mutator transaction binding the contract method 0xde16bf46.
 //
-// Solidity: function deregisterOperatorFromAVS() returns()
+// Solidity: function deregisterOperatorFromAVS() returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsSession) DeregisterOperatorFromAVS() (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.DeregisterOperatorFromAVS(&_ContractHimeraAvs.TransactOpts)
 }
 
 // DeregisterOperatorFromAVS is a paid mutator transaction binding the contract method 0xde16bf46.
 //
-// Solidity: function deregisterOperatorFromAVS() returns()
+// Solidity: function deregisterOperatorFromAVS() returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) DeregisterOperatorFromAVS() (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.DeregisterOperatorFromAVS(&_ContractHimeraAvs.TransactOpts)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc4d66de8.
+// OperatorSubmitTask is a paid mutator transaction binding the contract method 0x26135e9d.
 //
-// Solidity: function initialize(address initialOwner) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) Initialize(opts *bind.TransactOpts, initialOwner common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "initialize", initialOwner)
+// Solidity: function operatorSubmitTask(uint64 taskID, bytes taskResponse, bytes blsSignature, address taskContractAddress, uint8 phase) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactor) OperatorSubmitTask(opts *bind.TransactOpts, taskID uint64, taskResponse []byte, blsSignature []byte, taskContractAddress common.Address, phase uint8) (*types.Transaction, error) {
+	return _ContractHimeraAvs.contract.Transact(opts, "operatorSubmitTask", taskID, taskResponse, blsSignature, taskContractAddress, phase)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc4d66de8.
+// OperatorSubmitTask is a paid mutator transaction binding the contract method 0x26135e9d.
 //
-// Solidity: function initialize(address initialOwner) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) Initialize(initialOwner common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.Initialize(&_ContractHimeraAvs.TransactOpts, initialOwner)
+// Solidity: function operatorSubmitTask(uint64 taskID, bytes taskResponse, bytes blsSignature, address taskContractAddress, uint8 phase) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) OperatorSubmitTask(taskID uint64, taskResponse []byte, blsSignature []byte, taskContractAddress common.Address, phase uint8) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.OperatorSubmitTask(&_ContractHimeraAvs.TransactOpts, taskID, taskResponse, blsSignature, taskContractAddress, phase)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc4d66de8.
+// OperatorSubmitTask is a paid mutator transaction binding the contract method 0x26135e9d.
 //
-// Solidity: function initialize(address initialOwner) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) Initialize(initialOwner common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.Initialize(&_ContractHimeraAvs.TransactOpts, initialOwner)
+// Solidity: function operatorSubmitTask(uint64 taskID, bytes taskResponse, bytes blsSignature, address taskContractAddress, uint8 phase) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) OperatorSubmitTask(taskID uint64, taskResponse []byte, blsSignature []byte, taskContractAddress common.Address, phase uint8) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.OperatorSubmitTask(&_ContractHimeraAvs.TransactOpts, taskID, taskResponse, blsSignature, taskContractAddress, phase)
 }
 
-// OperatorSubmitTask is a paid mutator transaction binding the contract method 0x6d392e69.
+// RaiseAndResolveChallenge is a paid mutator transaction binding the contract method 0x8ceba7e9.
 //
-// Solidity: function operatorSubmitTask(uint64 taskID, bytes taskResponse, bytes blsSignature, uint8 phase) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) OperatorSubmitTask(opts *bind.TransactOpts, taskID uint64, taskResponse []byte, blsSignature []byte, phase uint8) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "operatorSubmitTask", taskID, taskResponse, blsSignature, phase)
+// Solidity: function raiseAndResolveChallenge((uint64,address,uint64,(address,uint64,address,string,bytes,bytes,uint256,uint8)[],address[],address[],string) req) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactor) RaiseAndResolveChallenge(opts *bind.TransactOpts, req AvsServiceContractChallengeReq) (*types.Transaction, error) {
+	return _ContractHimeraAvs.contract.Transact(opts, "raiseAndResolveChallenge", req)
 }
 
-// OperatorSubmitTask is a paid mutator transaction binding the contract method 0x6d392e69.
+// RaiseAndResolveChallenge is a paid mutator transaction binding the contract method 0x8ceba7e9.
 //
-// Solidity: function operatorSubmitTask(uint64 taskID, bytes taskResponse, bytes blsSignature, uint8 phase) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) OperatorSubmitTask(taskID uint64, taskResponse []byte, blsSignature []byte, phase uint8) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.OperatorSubmitTask(&_ContractHimeraAvs.TransactOpts, taskID, taskResponse, blsSignature, phase)
+// Solidity: function raiseAndResolveChallenge((uint64,address,uint64,(address,uint64,address,string,bytes,bytes,uint256,uint8)[],address[],address[],string) req) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) RaiseAndResolveChallenge(req AvsServiceContractChallengeReq) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.RaiseAndResolveChallenge(&_ContractHimeraAvs.TransactOpts, req)
 }
 
-// OperatorSubmitTask is a paid mutator transaction binding the contract method 0x6d392e69.
+// RaiseAndResolveChallenge is a paid mutator transaction binding the contract method 0x8ceba7e9.
 //
-// Solidity: function operatorSubmitTask(uint64 taskID, bytes taskResponse, bytes blsSignature, uint8 phase) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) OperatorSubmitTask(taskID uint64, taskResponse []byte, blsSignature []byte, phase uint8) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.OperatorSubmitTask(&_ContractHimeraAvs.TransactOpts, taskID, taskResponse, blsSignature, phase)
+// Solidity: function raiseAndResolveChallenge((uint64,address,uint64,(address,uint64,address,string,bytes,bytes,uint256,uint8)[],address[],address[],string) req) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) RaiseAndResolveChallenge(req AvsServiceContractChallengeReq) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.RaiseAndResolveChallenge(&_ContractHimeraAvs.TransactOpts, req)
 }
 
 // RegisterAVS is a paid mutator transaction binding the contract method 0x0b70f322.
 //
-// Solidity: function registerAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns()
+// Solidity: function registerAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactor) RegisterAVS(opts *bind.TransactOpts, params AVSParams) (*types.Transaction, error) {
 	return _ContractHimeraAvs.contract.Transact(opts, "registerAVS", params)
 }
 
 // RegisterAVS is a paid mutator transaction binding the contract method 0x0b70f322.
 //
-// Solidity: function registerAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns()
+// Solidity: function registerAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsSession) RegisterAVS(params AVSParams) (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.RegisterAVS(&_ContractHimeraAvs.TransactOpts, params)
 }
 
 // RegisterAVS is a paid mutator transaction binding the contract method 0x0b70f322.
 //
-// Solidity: function registerAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns()
+// Solidity: function registerAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) RegisterAVS(params AVSParams) (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.RegisterAVS(&_ContractHimeraAvs.TransactOpts, params)
 }
 
-// RegisterBLSPublicKey is a paid mutator transaction binding the contract method 0xf75816e9.
+// RegisterBLSPublicKey is a paid mutator transaction binding the contract method 0x5d9e941f.
 //
-// Solidity: function registerBLSPublicKey(bytes pubKey, bytes pubKeyRegSig) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) RegisterBLSPublicKey(opts *bind.TransactOpts, pubKey []byte, pubKeyRegSig []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "registerBLSPublicKey", pubKey, pubKeyRegSig)
+// Solidity: function registerBLSPublicKey(address avsAddr, bytes pubKey, bytes pubKeyRegistrationSignature) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactor) RegisterBLSPublicKey(opts *bind.TransactOpts, avsAddr common.Address, pubKey []byte, pubKeyRegistrationSignature []byte) (*types.Transaction, error) {
+	return _ContractHimeraAvs.contract.Transact(opts, "registerBLSPublicKey", avsAddr, pubKey, pubKeyRegistrationSignature)
 }
 
-// RegisterBLSPublicKey is a paid mutator transaction binding the contract method 0xf75816e9.
+// RegisterBLSPublicKey is a paid mutator transaction binding the contract method 0x5d9e941f.
 //
-// Solidity: function registerBLSPublicKey(bytes pubKey, bytes pubKeyRegSig) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) RegisterBLSPublicKey(pubKey []byte, pubKeyRegSig []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.RegisterBLSPublicKey(&_ContractHimeraAvs.TransactOpts, pubKey, pubKeyRegSig)
+// Solidity: function registerBLSPublicKey(address avsAddr, bytes pubKey, bytes pubKeyRegistrationSignature) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsSession) RegisterBLSPublicKey(avsAddr common.Address, pubKey []byte, pubKeyRegistrationSignature []byte) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.RegisterBLSPublicKey(&_ContractHimeraAvs.TransactOpts, avsAddr, pubKey, pubKeyRegistrationSignature)
 }
 
-// RegisterBLSPublicKey is a paid mutator transaction binding the contract method 0xf75816e9.
+// RegisterBLSPublicKey is a paid mutator transaction binding the contract method 0x5d9e941f.
 //
-// Solidity: function registerBLSPublicKey(bytes pubKey, bytes pubKeyRegSig) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) RegisterBLSPublicKey(pubKey []byte, pubKeyRegSig []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.RegisterBLSPublicKey(&_ContractHimeraAvs.TransactOpts, pubKey, pubKeyRegSig)
+// Solidity: function registerBLSPublicKey(address avsAddr, bytes pubKey, bytes pubKeyRegistrationSignature) returns(bool)
+func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) RegisterBLSPublicKey(avsAddr common.Address, pubKey []byte, pubKeyRegistrationSignature []byte) (*types.Transaction, error) {
+	return _ContractHimeraAvs.Contract.RegisterBLSPublicKey(&_ContractHimeraAvs.TransactOpts, avsAddr, pubKey, pubKeyRegistrationSignature)
 }
 
 // RegisterOperatorToAVS is a paid mutator transaction binding the contract method 0xc208dd99.
 //
-// Solidity: function registerOperatorToAVS() returns()
+// Solidity: function registerOperatorToAVS() returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactor) RegisterOperatorToAVS(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _ContractHimeraAvs.contract.Transact(opts, "registerOperatorToAVS")
 }
 
 // RegisterOperatorToAVS is a paid mutator transaction binding the contract method 0xc208dd99.
 //
-// Solidity: function registerOperatorToAVS() returns()
+// Solidity: function registerOperatorToAVS() returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsSession) RegisterOperatorToAVS() (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.RegisterOperatorToAVS(&_ContractHimeraAvs.TransactOpts)
 }
 
 // RegisterOperatorToAVS is a paid mutator transaction binding the contract method 0xc208dd99.
 //
-// Solidity: function registerOperatorToAVS() returns()
+// Solidity: function registerOperatorToAVS() returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) RegisterOperatorToAVS() (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.RegisterOperatorToAVS(&_ContractHimeraAvs.TransactOpts)
 }
 
-// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
-//
-// Solidity: function renounceOwnership() returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "renounceOwnership")
-}
-
-// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
-//
-// Solidity: function renounceOwnership() returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) RenounceOwnership() (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.RenounceOwnership(&_ContractHimeraAvs.TransactOpts)
-}
-
-// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
-//
-// Solidity: function renounceOwnership() returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) RenounceOwnership() (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.RenounceOwnership(&_ContractHimeraAvs.TransactOpts)
-}
-
-// SetChallenger is a paid mutator transaction binding the contract method 0xb6b46535.
-//
-// Solidity: function setChallenger(address _challenger) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) SetChallenger(opts *bind.TransactOpts, _challenger common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "setChallenger", _challenger)
-}
-
-// SetChallenger is a paid mutator transaction binding the contract method 0xb6b46535.
-//
-// Solidity: function setChallenger(address _challenger) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) SetChallenger(_challenger common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetChallenger(&_ContractHimeraAvs.TransactOpts, _challenger)
-}
-
-// SetChallenger is a paid mutator transaction binding the contract method 0xb6b46535.
-//
-// Solidity: function setChallenger(address _challenger) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) SetChallenger(_challenger common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetChallenger(&_ContractHimeraAvs.TransactOpts, _challenger)
-}
-
-// SetRewardManager is a paid mutator transaction binding the contract method 0x153ee554.
-//
-// Solidity: function setRewardManager(address _rewardManager) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) SetRewardManager(opts *bind.TransactOpts, _rewardManager common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "setRewardManager", _rewardManager)
-}
-
-// SetRewardManager is a paid mutator transaction binding the contract method 0x153ee554.
-//
-// Solidity: function setRewardManager(address _rewardManager) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) SetRewardManager(_rewardManager common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetRewardManager(&_ContractHimeraAvs.TransactOpts, _rewardManager)
-}
-
-// SetRewardManager is a paid mutator transaction binding the contract method 0x153ee554.
-//
-// Solidity: function setRewardManager(address _rewardManager) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) SetRewardManager(_rewardManager common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetRewardManager(&_ContractHimeraAvs.TransactOpts, _rewardManager)
-}
-
-// SetSlasher is a paid mutator transaction binding the contract method 0xaabc2496.
-//
-// Solidity: function setSlasher(address _slasher) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) SetSlasher(opts *bind.TransactOpts, _slasher common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "setSlasher", _slasher)
-}
-
-// SetSlasher is a paid mutator transaction binding the contract method 0xaabc2496.
-//
-// Solidity: function setSlasher(address _slasher) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) SetSlasher(_slasher common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetSlasher(&_ContractHimeraAvs.TransactOpts, _slasher)
-}
-
-// SetSlasher is a paid mutator transaction binding the contract method 0xaabc2496.
-//
-// Solidity: function setSlasher(address _slasher) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) SetSlasher(_slasher common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetSlasher(&_ContractHimeraAvs.TransactOpts, _slasher)
-}
-
-// SetupTaskDefinitions is a paid mutator transaction binding the contract method 0x2b1561ef.
-//
-// Solidity: function setupTaskDefinitions() returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) SetupTaskDefinitions(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "setupTaskDefinitions")
-}
-
-// SetupTaskDefinitions is a paid mutator transaction binding the contract method 0x2b1561ef.
-//
-// Solidity: function setupTaskDefinitions() returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) SetupTaskDefinitions() (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetupTaskDefinitions(&_ContractHimeraAvs.TransactOpts)
-}
-
-// SetupTaskDefinitions is a paid mutator transaction binding the contract method 0x2b1561ef.
-//
-// Solidity: function setupTaskDefinitions() returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) SetupTaskDefinitions() (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.SetupTaskDefinitions(&_ContractHimeraAvs.TransactOpts)
-}
-
-// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "transferOwnership", newOwner)
-}
-
-// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.TransferOwnership(&_ContractHimeraAvs.TransactOpts, newOwner)
-}
-
-// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
-//
-// Solidity: function transferOwnership(address newOwner) returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.TransferOwnership(&_ContractHimeraAvs.TransactOpts, newOwner)
-}
-
 // UpdateAVS is a paid mutator transaction binding the contract method 0x3a72b900.
 //
-// Solidity: function updateAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns()
+// Solidity: function updateAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactor) UpdateAVS(opts *bind.TransactOpts, params AVSParams) (*types.Transaction, error) {
 	return _ContractHimeraAvs.contract.Transact(opts, "updateAVS", params)
 }
 
 // UpdateAVS is a paid mutator transaction binding the contract method 0x3a72b900.
 //
-// Solidity: function updateAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns()
+// Solidity: function updateAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsSession) UpdateAVS(params AVSParams) (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.UpdateAVS(&_ContractHimeraAvs.TransactOpts, params)
 }
 
 // UpdateAVS is a paid mutator transaction binding the contract method 0x3a72b900.
 //
-// Solidity: function updateAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns()
+// Solidity: function updateAVS((address,string,uint64,address,address,address,address[],address[],string[],uint64,uint64,string,uint64,uint64,uint64,uint64) params) returns(bool)
 func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) UpdateAVS(params AVSParams) (*types.Transaction, error) {
 	return _ContractHimeraAvs.Contract.UpdateAVS(&_ContractHimeraAvs.TransactOpts, params)
 }
 
-// UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
-//
-// Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactor) UpgradeToAndCall(opts *bind.TransactOpts, newImplementation common.Address, data []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.contract.Transact(opts, "upgradeToAndCall", newImplementation, data)
-}
-
-// UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
-//
-// Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
-func (_ContractHimeraAvs *ContractHimeraAvsSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.UpgradeToAndCall(&_ContractHimeraAvs.TransactOpts, newImplementation, data)
-}
-
-// UpgradeToAndCall is a paid mutator transaction binding the contract method 0x4f1ef286.
-//
-// Solidity: function upgradeToAndCall(address newImplementation, bytes data) payable returns()
-func (_ContractHimeraAvs *ContractHimeraAvsTransactorSession) UpgradeToAndCall(newImplementation common.Address, data []byte) (*types.Transaction, error) {
-	return _ContractHimeraAvs.Contract.UpgradeToAndCall(&_ContractHimeraAvs.TransactOpts, newImplementation, data)
-}
-
-// ContractHimeraAvsBLSPublicKeyRegisteredIterator is returned from FilterBLSPublicKeyRegistered and is used to iterate over the raw logs and unpacked data for BLSPublicKeyRegistered events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsBLSPublicKeyRegisteredIterator struct {
-	Event *ContractHimeraAvsBLSPublicKeyRegistered // Event containing the contract specifics and raw log
+// ContractHimeraAvsTaskCreatedIterator is returned from FilterTaskCreated and is used to iterate over the raw logs and unpacked data for TaskCreated events raised by the ContractHimeraAvs contract.
+type ContractHimeraAvsTaskCreatedIterator struct {
+	Event *ContractHimeraAvsTaskCreated // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -868,7 +971,7 @@ type ContractHimeraAvsBLSPublicKeyRegisteredIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsBLSPublicKeyRegisteredIterator) Next() bool {
+func (it *ContractHimeraAvsTaskCreatedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -877,7 +980,7 @@ func (it *ContractHimeraAvsBLSPublicKeyRegisteredIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsBLSPublicKeyRegistered)
+			it.Event = new(ContractHimeraAvsTaskCreated)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -892,7 +995,7 @@ func (it *ContractHimeraAvsBLSPublicKeyRegisteredIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsBLSPublicKeyRegistered)
+		it.Event = new(ContractHimeraAvsTaskCreated)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -908,61 +1011,48 @@ func (it *ContractHimeraAvsBLSPublicKeyRegisteredIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsBLSPublicKeyRegisteredIterator) Error() error {
+func (it *ContractHimeraAvsTaskCreatedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *ContractHimeraAvsBLSPublicKeyRegisteredIterator) Close() error {
+func (it *ContractHimeraAvsTaskCreatedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// ContractHimeraAvsBLSPublicKeyRegistered represents a BLSPublicKeyRegistered event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsBLSPublicKeyRegistered struct {
-	Operator   common.Address
-	AvsAddress common.Address
-	PubKey     []byte
-	Raw        types.Log // Blockchain specific contextual infos
+// ContractHimeraAvsTaskCreated represents a TaskCreated event raised by the ContractHimeraAvs contract.
+type ContractHimeraAvsTaskCreated struct {
+	TaskId                *big.Int
+	Issuer                common.Address
+	Name                  string
+	NumberToBeSquared     uint64
+	TaskResponsePeriod    uint64
+	TaskChallengePeriod   uint64
+	ThresholdPercentage   uint8
+	TaskStatisticalPeriod uint64
+	Raw                   types.Log // Blockchain specific contextual infos
 }
 
-// FilterBLSPublicKeyRegistered is a free log retrieval operation binding the contract event 0xd7a56e64a4cd1aeb35e575da573ffdbd29cbafdf2ef88c1772197d7c72be405f.
+// FilterTaskCreated is a free log retrieval operation binding the contract event 0x4dfd104b58200242cb7c78a0b813d73b03ff98d5778539c1e2a942c2e0712de4.
 //
-// Solidity: event BLSPublicKeyRegistered(address indexed operator, address indexed avsAddress, bytes pubKey)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterBLSPublicKeyRegistered(opts *bind.FilterOpts, operator []common.Address, avsAddress []common.Address) (*ContractHimeraAvsBLSPublicKeyRegisteredIterator, error) {
+// Solidity: event TaskCreated(uint256 taskId, address issuer, string name, uint64 numberToBeSquared, uint64 taskResponsePeriod, uint64 taskChallengePeriod, uint8 thresholdPercentage, uint64 taskStatisticalPeriod)
+func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterTaskCreated(opts *bind.FilterOpts) (*ContractHimeraAvsTaskCreatedIterator, error) {
 
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-	var avsAddressRule []interface{}
-	for _, avsAddressItem := range avsAddress {
-		avsAddressRule = append(avsAddressRule, avsAddressItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "BLSPublicKeyRegistered", operatorRule, avsAddressRule)
+	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "TaskCreated")
 	if err != nil {
 		return nil, err
 	}
-	return &ContractHimeraAvsBLSPublicKeyRegisteredIterator{contract: _ContractHimeraAvs.contract, event: "BLSPublicKeyRegistered", logs: logs, sub: sub}, nil
+	return &ContractHimeraAvsTaskCreatedIterator{contract: _ContractHimeraAvs.contract, event: "TaskCreated", logs: logs, sub: sub}, nil
 }
 
-// WatchBLSPublicKeyRegistered is a free log subscription operation binding the contract event 0xd7a56e64a4cd1aeb35e575da573ffdbd29cbafdf2ef88c1772197d7c72be405f.
+// WatchTaskCreated is a free log subscription operation binding the contract event 0x4dfd104b58200242cb7c78a0b813d73b03ff98d5778539c1e2a942c2e0712de4.
 //
-// Solidity: event BLSPublicKeyRegistered(address indexed operator, address indexed avsAddress, bytes pubKey)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchBLSPublicKeyRegistered(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsBLSPublicKeyRegistered, operator []common.Address, avsAddress []common.Address) (event.Subscription, error) {
+// Solidity: event TaskCreated(uint256 taskId, address issuer, string name, uint64 numberToBeSquared, uint64 taskResponsePeriod, uint64 taskChallengePeriod, uint8 thresholdPercentage, uint64 taskStatisticalPeriod)
+func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchTaskCreated(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsTaskCreated) (event.Subscription, error) {
 
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-	var avsAddressRule []interface{}
-	for _, avsAddressItem := range avsAddress {
-		avsAddressRule = append(avsAddressRule, avsAddressItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "BLSPublicKeyRegistered", operatorRule, avsAddressRule)
+	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "TaskCreated")
 	if err != nil {
 		return nil, err
 	}
@@ -972,8 +1062,8 @@ func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchBLSPublicKeyRegistered
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsBLSPublicKeyRegistered)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "BLSPublicKeyRegistered", log); err != nil {
+				event := new(ContractHimeraAvsTaskCreated)
+				if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskCreated", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -994,21 +1084,21 @@ func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchBLSPublicKeyRegistered
 	}), nil
 }
 
-// ParseBLSPublicKeyRegistered is a log parse operation binding the contract event 0xd7a56e64a4cd1aeb35e575da573ffdbd29cbafdf2ef88c1772197d7c72be405f.
+// ParseTaskCreated is a log parse operation binding the contract event 0x4dfd104b58200242cb7c78a0b813d73b03ff98d5778539c1e2a942c2e0712de4.
 //
-// Solidity: event BLSPublicKeyRegistered(address indexed operator, address indexed avsAddress, bytes pubKey)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseBLSPublicKeyRegistered(log types.Log) (*ContractHimeraAvsBLSPublicKeyRegistered, error) {
-	event := new(ContractHimeraAvsBLSPublicKeyRegistered)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "BLSPublicKeyRegistered", log); err != nil {
+// Solidity: event TaskCreated(uint256 taskId, address issuer, string name, uint64 numberToBeSquared, uint64 taskResponsePeriod, uint64 taskChallengePeriod, uint8 thresholdPercentage, uint64 taskStatisticalPeriod)
+func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseTaskCreated(log types.Log) (*ContractHimeraAvsTaskCreated, error) {
+	event := new(ContractHimeraAvsTaskCreated)
+	if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskCreated", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// ContractHimeraAvsChallengeSubmittedIterator is returned from FilterChallengeSubmitted and is used to iterate over the raw logs and unpacked data for ChallengeSubmitted events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsChallengeSubmittedIterator struct {
-	Event *ContractHimeraAvsChallengeSubmitted // Event containing the contract specifics and raw log
+// ContractHimeraAvsTaskResolvedIterator is returned from FilterTaskResolved and is used to iterate over the raw logs and unpacked data for TaskResolved events raised by the ContractHimeraAvs contract.
+type ContractHimeraAvsTaskResolvedIterator struct {
+	Event *ContractHimeraAvsTaskResolved // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1022,7 +1112,7 @@ type ContractHimeraAvsChallengeSubmittedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsChallengeSubmittedIterator) Next() bool {
+func (it *ContractHimeraAvsTaskResolvedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1031,7 +1121,7 @@ func (it *ContractHimeraAvsChallengeSubmittedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsChallengeSubmitted)
+			it.Event = new(ContractHimeraAvsTaskResolved)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1046,7 +1136,7 @@ func (it *ContractHimeraAvsChallengeSubmittedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsChallengeSubmitted)
+		it.Event = new(ContractHimeraAvsTaskResolved)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1062,61 +1152,42 @@ func (it *ContractHimeraAvsChallengeSubmittedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsChallengeSubmittedIterator) Error() error {
+func (it *ContractHimeraAvsTaskResolvedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *ContractHimeraAvsChallengeSubmittedIterator) Close() error {
+func (it *ContractHimeraAvsTaskResolvedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// ContractHimeraAvsChallengeSubmitted represents a ChallengeSubmitted event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsChallengeSubmitted struct {
-	TaskID     uint64
-	Challenger common.Address
-	IsExpected bool
-	Raw        types.Log // Blockchain specific contextual infos
+// ContractHimeraAvsTaskResolved represents a TaskResolved event raised by the ContractHimeraAvs contract.
+type ContractHimeraAvsTaskResolved struct {
+	TaskId      uint64
+	TaskAddress common.Address
+	Raw         types.Log // Blockchain specific contextual infos
 }
 
-// FilterChallengeSubmitted is a free log retrieval operation binding the contract event 0x9de5978cdd4b224702e27e43ab9f28631c0ab8ffe4b20e4cd8301d7a6da8ae72.
+// FilterTaskResolved is a free log retrieval operation binding the contract event 0x8fb75f3b1e626a6edd812663a822ecd29a655aecbe0663810c1ef8c76292357b.
 //
-// Solidity: event ChallengeSubmitted(uint64 indexed taskID, address indexed challenger, bool isExpected)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterChallengeSubmitted(opts *bind.FilterOpts, taskID []uint64, challenger []common.Address) (*ContractHimeraAvsChallengeSubmittedIterator, error) {
+// Solidity: event TaskResolved(uint64 taskId, address taskAddress)
+func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterTaskResolved(opts *bind.FilterOpts) (*ContractHimeraAvsTaskResolvedIterator, error) {
 
-	var taskIDRule []interface{}
-	for _, taskIDItem := range taskID {
-		taskIDRule = append(taskIDRule, taskIDItem)
-	}
-	var challengerRule []interface{}
-	for _, challengerItem := range challenger {
-		challengerRule = append(challengerRule, challengerItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "ChallengeSubmitted", taskIDRule, challengerRule)
+	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "TaskResolved")
 	if err != nil {
 		return nil, err
 	}
-	return &ContractHimeraAvsChallengeSubmittedIterator{contract: _ContractHimeraAvs.contract, event: "ChallengeSubmitted", logs: logs, sub: sub}, nil
+	return &ContractHimeraAvsTaskResolvedIterator{contract: _ContractHimeraAvs.contract, event: "TaskResolved", logs: logs, sub: sub}, nil
 }
 
-// WatchChallengeSubmitted is a free log subscription operation binding the contract event 0x9de5978cdd4b224702e27e43ab9f28631c0ab8ffe4b20e4cd8301d7a6da8ae72.
+// WatchTaskResolved is a free log subscription operation binding the contract event 0x8fb75f3b1e626a6edd812663a822ecd29a655aecbe0663810c1ef8c76292357b.
 //
-// Solidity: event ChallengeSubmitted(uint64 indexed taskID, address indexed challenger, bool isExpected)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchChallengeSubmitted(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsChallengeSubmitted, taskID []uint64, challenger []common.Address) (event.Subscription, error) {
+// Solidity: event TaskResolved(uint64 taskId, address taskAddress)
+func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchTaskResolved(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsTaskResolved) (event.Subscription, error) {
 
-	var taskIDRule []interface{}
-	for _, taskIDItem := range taskID {
-		taskIDRule = append(taskIDRule, taskIDItem)
-	}
-	var challengerRule []interface{}
-	for _, challengerItem := range challenger {
-		challengerRule = append(challengerRule, challengerItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "ChallengeSubmitted", taskIDRule, challengerRule)
+	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "TaskResolved")
 	if err != nil {
 		return nil, err
 	}
@@ -1126,8 +1197,8 @@ func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchChallengeSubmitted(opt
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsChallengeSubmitted)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "ChallengeSubmitted", log); err != nil {
+				event := new(ContractHimeraAvsTaskResolved)
+				if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskResolved", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1148,1466 +1219,12 @@ func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchChallengeSubmitted(opt
 	}), nil
 }
 
-// ParseChallengeSubmitted is a log parse operation binding the contract event 0x9de5978cdd4b224702e27e43ab9f28631c0ab8ffe4b20e4cd8301d7a6da8ae72.
+// ParseTaskResolved is a log parse operation binding the contract event 0x8fb75f3b1e626a6edd812663a822ecd29a655aecbe0663810c1ef8c76292357b.
 //
-// Solidity: event ChallengeSubmitted(uint64 indexed taskID, address indexed challenger, bool isExpected)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseChallengeSubmitted(log types.Log) (*ContractHimeraAvsChallengeSubmitted, error) {
-	event := new(ContractHimeraAvsChallengeSubmitted)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "ChallengeSubmitted", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsHimeraTaskCreatedIterator is returned from FilterHimeraTaskCreated and is used to iterate over the raw logs and unpacked data for HimeraTaskCreated events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsHimeraTaskCreatedIterator struct {
-	Event *ContractHimeraAvsHimeraTaskCreated // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsHimeraTaskCreatedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsHimeraTaskCreated)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsHimeraTaskCreated)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsHimeraTaskCreatedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsHimeraTaskCreatedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsHimeraTaskCreated represents a HimeraTaskCreated event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsHimeraTaskCreated struct {
-	ImuaTaskId      uint64
-	DefinitionHash  [32]byte
-	HimeraTaskDefId uint8
-	TaskInput       []byte
-	Raw             types.Log // Blockchain specific contextual infos
-}
-
-// FilterHimeraTaskCreated is a free log retrieval operation binding the contract event 0x1aed6be81feb12ccef30c1cd152e1d55d0f204797de8d6240ffc01dffc56d286.
-//
-// Solidity: event HimeraTaskCreated(uint64 indexed imuaTaskId, bytes32 definitionHash, uint8 himeraTaskDefId, bytes taskInput)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterHimeraTaskCreated(opts *bind.FilterOpts, imuaTaskId []uint64) (*ContractHimeraAvsHimeraTaskCreatedIterator, error) {
-
-	var imuaTaskIdRule []interface{}
-	for _, imuaTaskIdItem := range imuaTaskId {
-		imuaTaskIdRule = append(imuaTaskIdRule, imuaTaskIdItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "HimeraTaskCreated", imuaTaskIdRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsHimeraTaskCreatedIterator{contract: _ContractHimeraAvs.contract, event: "HimeraTaskCreated", logs: logs, sub: sub}, nil
-}
-
-// WatchHimeraTaskCreated is a free log subscription operation binding the contract event 0x1aed6be81feb12ccef30c1cd152e1d55d0f204797de8d6240ffc01dffc56d286.
-//
-// Solidity: event HimeraTaskCreated(uint64 indexed imuaTaskId, bytes32 definitionHash, uint8 himeraTaskDefId, bytes taskInput)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchHimeraTaskCreated(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsHimeraTaskCreated, imuaTaskId []uint64) (event.Subscription, error) {
-
-	var imuaTaskIdRule []interface{}
-	for _, imuaTaskIdItem := range imuaTaskId {
-		imuaTaskIdRule = append(imuaTaskIdRule, imuaTaskIdItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "HimeraTaskCreated", imuaTaskIdRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsHimeraTaskCreated)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "HimeraTaskCreated", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseHimeraTaskCreated is a log parse operation binding the contract event 0x1aed6be81feb12ccef30c1cd152e1d55d0f204797de8d6240ffc01dffc56d286.
-//
-// Solidity: event HimeraTaskCreated(uint64 indexed imuaTaskId, bytes32 definitionHash, uint8 himeraTaskDefId, bytes taskInput)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseHimeraTaskCreated(log types.Log) (*ContractHimeraAvsHimeraTaskCreated, error) {
-	event := new(ContractHimeraAvsHimeraTaskCreated)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "HimeraTaskCreated", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsInitializedIterator is returned from FilterInitialized and is used to iterate over the raw logs and unpacked data for Initialized events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsInitializedIterator struct {
-	Event *ContractHimeraAvsInitialized // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsInitializedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsInitialized)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsInitialized)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsInitializedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsInitializedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsInitialized represents a Initialized event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsInitialized struct {
-	Version uint64
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterInitialized is a free log retrieval operation binding the contract event 0xc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d2.
-//
-// Solidity: event Initialized(uint64 version)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterInitialized(opts *bind.FilterOpts) (*ContractHimeraAvsInitializedIterator, error) {
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "Initialized")
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsInitializedIterator{contract: _ContractHimeraAvs.contract, event: "Initialized", logs: logs, sub: sub}, nil
-}
-
-// WatchInitialized is a free log subscription operation binding the contract event 0xc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d2.
-//
-// Solidity: event Initialized(uint64 version)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchInitialized(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsInitialized) (event.Subscription, error) {
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "Initialized")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsInitialized)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "Initialized", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseInitialized is a log parse operation binding the contract event 0xc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d2.
-//
-// Solidity: event Initialized(uint64 version)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseInitialized(log types.Log) (*ContractHimeraAvsInitialized, error) {
-	event := new(ContractHimeraAvsInitialized)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "Initialized", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsOperatorOptedInIterator is returned from FilterOperatorOptedIn and is used to iterate over the raw logs and unpacked data for OperatorOptedIn events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsOperatorOptedInIterator struct {
-	Event *ContractHimeraAvsOperatorOptedIn // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsOperatorOptedInIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsOperatorOptedIn)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsOperatorOptedIn)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsOperatorOptedInIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsOperatorOptedInIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsOperatorOptedIn represents a OperatorOptedIn event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsOperatorOptedIn struct {
-	Operator common.Address
-	Raw      types.Log // Blockchain specific contextual infos
-}
-
-// FilterOperatorOptedIn is a free log retrieval operation binding the contract event 0x3eb9749f7e08a89f04537594ff4cf7885d8f0b56138c8cfa999b44771fb1a148.
-//
-// Solidity: event OperatorOptedIn(address indexed operator)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterOperatorOptedIn(opts *bind.FilterOpts, operator []common.Address) (*ContractHimeraAvsOperatorOptedInIterator, error) {
-
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "OperatorOptedIn", operatorRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsOperatorOptedInIterator{contract: _ContractHimeraAvs.contract, event: "OperatorOptedIn", logs: logs, sub: sub}, nil
-}
-
-// WatchOperatorOptedIn is a free log subscription operation binding the contract event 0x3eb9749f7e08a89f04537594ff4cf7885d8f0b56138c8cfa999b44771fb1a148.
-//
-// Solidity: event OperatorOptedIn(address indexed operator)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchOperatorOptedIn(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsOperatorOptedIn, operator []common.Address) (event.Subscription, error) {
-
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "OperatorOptedIn", operatorRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsOperatorOptedIn)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "OperatorOptedIn", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseOperatorOptedIn is a log parse operation binding the contract event 0x3eb9749f7e08a89f04537594ff4cf7885d8f0b56138c8cfa999b44771fb1a148.
-//
-// Solidity: event OperatorOptedIn(address indexed operator)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseOperatorOptedIn(log types.Log) (*ContractHimeraAvsOperatorOptedIn, error) {
-	event := new(ContractHimeraAvsOperatorOptedIn)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "OperatorOptedIn", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsOperatorOptedOutIterator is returned from FilterOperatorOptedOut and is used to iterate over the raw logs and unpacked data for OperatorOptedOut events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsOperatorOptedOutIterator struct {
-	Event *ContractHimeraAvsOperatorOptedOut // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsOperatorOptedOutIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsOperatorOptedOut)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsOperatorOptedOut)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsOperatorOptedOutIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsOperatorOptedOutIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsOperatorOptedOut represents a OperatorOptedOut event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsOperatorOptedOut struct {
-	Operator common.Address
-	Raw      types.Log // Blockchain specific contextual infos
-}
-
-// FilterOperatorOptedOut is a free log retrieval operation binding the contract event 0x70245217442e9b16c38a95d39c7516c388c244266dd7c91b7bd8dbe285adf1a2.
-//
-// Solidity: event OperatorOptedOut(address indexed operator)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterOperatorOptedOut(opts *bind.FilterOpts, operator []common.Address) (*ContractHimeraAvsOperatorOptedOutIterator, error) {
-
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "OperatorOptedOut", operatorRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsOperatorOptedOutIterator{contract: _ContractHimeraAvs.contract, event: "OperatorOptedOut", logs: logs, sub: sub}, nil
-}
-
-// WatchOperatorOptedOut is a free log subscription operation binding the contract event 0x70245217442e9b16c38a95d39c7516c388c244266dd7c91b7bd8dbe285adf1a2.
-//
-// Solidity: event OperatorOptedOut(address indexed operator)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchOperatorOptedOut(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsOperatorOptedOut, operator []common.Address) (event.Subscription, error) {
-
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "OperatorOptedOut", operatorRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsOperatorOptedOut)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "OperatorOptedOut", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseOperatorOptedOut is a log parse operation binding the contract event 0x70245217442e9b16c38a95d39c7516c388c244266dd7c91b7bd8dbe285adf1a2.
-//
-// Solidity: event OperatorOptedOut(address indexed operator)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseOperatorOptedOut(log types.Log) (*ContractHimeraAvsOperatorOptedOut, error) {
-	event := new(ContractHimeraAvsOperatorOptedOut)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "OperatorOptedOut", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsOwnershipTransferredIterator struct {
-	Event *ContractHimeraAvsOwnershipTransferred // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsOwnershipTransferredIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsOwnershipTransferred)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsOwnershipTransferred)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsOwnershipTransferredIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsOwnershipTransferredIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsOwnershipTransferred represents a OwnershipTransferred event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsOwnershipTransferred struct {
-	PreviousOwner common.Address
-	NewOwner      common.Address
-	Raw           types.Log // Blockchain specific contextual infos
-}
-
-// FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
-//
-// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*ContractHimeraAvsOwnershipTransferredIterator, error) {
-
-	var previousOwnerRule []interface{}
-	for _, previousOwnerItem := range previousOwner {
-		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
-	}
-	var newOwnerRule []interface{}
-	for _, newOwnerItem := range newOwner {
-		newOwnerRule = append(newOwnerRule, newOwnerItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsOwnershipTransferredIterator{contract: _ContractHimeraAvs.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
-}
-
-// WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
-//
-// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
-
-	var previousOwnerRule []interface{}
-	for _, previousOwnerItem := range previousOwner {
-		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
-	}
-	var newOwnerRule []interface{}
-	for _, newOwnerItem := range newOwner {
-		newOwnerRule = append(newOwnerRule, newOwnerItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsOwnershipTransferred)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseOwnershipTransferred is a log parse operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
-//
-// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseOwnershipTransferred(log types.Log) (*ContractHimeraAvsOwnershipTransferred, error) {
-	event := new(ContractHimeraAvsOwnershipTransferred)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsRewardManagerUpdatedIterator is returned from FilterRewardManagerUpdated and is used to iterate over the raw logs and unpacked data for RewardManagerUpdated events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsRewardManagerUpdatedIterator struct {
-	Event *ContractHimeraAvsRewardManagerUpdated // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsRewardManagerUpdatedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsRewardManagerUpdated)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsRewardManagerUpdated)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsRewardManagerUpdatedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsRewardManagerUpdatedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsRewardManagerUpdated represents a RewardManagerUpdated event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsRewardManagerUpdated struct {
-	NewRewardManager common.Address
-	Raw              types.Log // Blockchain specific contextual infos
-}
-
-// FilterRewardManagerUpdated is a free log retrieval operation binding the contract event 0x3d94d9e8342a65edb95eef4f65059294d45e5192603632d8dddb2344e7078053.
-//
-// Solidity: event RewardManagerUpdated(address indexed newRewardManager)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterRewardManagerUpdated(opts *bind.FilterOpts, newRewardManager []common.Address) (*ContractHimeraAvsRewardManagerUpdatedIterator, error) {
-
-	var newRewardManagerRule []interface{}
-	for _, newRewardManagerItem := range newRewardManager {
-		newRewardManagerRule = append(newRewardManagerRule, newRewardManagerItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "RewardManagerUpdated", newRewardManagerRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsRewardManagerUpdatedIterator{contract: _ContractHimeraAvs.contract, event: "RewardManagerUpdated", logs: logs, sub: sub}, nil
-}
-
-// WatchRewardManagerUpdated is a free log subscription operation binding the contract event 0x3d94d9e8342a65edb95eef4f65059294d45e5192603632d8dddb2344e7078053.
-//
-// Solidity: event RewardManagerUpdated(address indexed newRewardManager)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchRewardManagerUpdated(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsRewardManagerUpdated, newRewardManager []common.Address) (event.Subscription, error) {
-
-	var newRewardManagerRule []interface{}
-	for _, newRewardManagerItem := range newRewardManager {
-		newRewardManagerRule = append(newRewardManagerRule, newRewardManagerItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "RewardManagerUpdated", newRewardManagerRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsRewardManagerUpdated)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "RewardManagerUpdated", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseRewardManagerUpdated is a log parse operation binding the contract event 0x3d94d9e8342a65edb95eef4f65059294d45e5192603632d8dddb2344e7078053.
-//
-// Solidity: event RewardManagerUpdated(address indexed newRewardManager)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseRewardManagerUpdated(log types.Log) (*ContractHimeraAvsRewardManagerUpdated, error) {
-	event := new(ContractHimeraAvsRewardManagerUpdated)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "RewardManagerUpdated", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsSlasherUpdatedIterator is returned from FilterSlasherUpdated and is used to iterate over the raw logs and unpacked data for SlasherUpdated events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsSlasherUpdatedIterator struct {
-	Event *ContractHimeraAvsSlasherUpdated // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsSlasherUpdatedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsSlasherUpdated)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsSlasherUpdated)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsSlasherUpdatedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsSlasherUpdatedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsSlasherUpdated represents a SlasherUpdated event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsSlasherUpdated struct {
-	NewSlasher common.Address
-	Raw        types.Log // Blockchain specific contextual infos
-}
-
-// FilterSlasherUpdated is a free log retrieval operation binding the contract event 0x0adf62081dae4c128a0af3a933748637b1d874a033588518f810559e6bdb23ff.
-//
-// Solidity: event SlasherUpdated(address indexed newSlasher)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterSlasherUpdated(opts *bind.FilterOpts, newSlasher []common.Address) (*ContractHimeraAvsSlasherUpdatedIterator, error) {
-
-	var newSlasherRule []interface{}
-	for _, newSlasherItem := range newSlasher {
-		newSlasherRule = append(newSlasherRule, newSlasherItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "SlasherUpdated", newSlasherRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsSlasherUpdatedIterator{contract: _ContractHimeraAvs.contract, event: "SlasherUpdated", logs: logs, sub: sub}, nil
-}
-
-// WatchSlasherUpdated is a free log subscription operation binding the contract event 0x0adf62081dae4c128a0af3a933748637b1d874a033588518f810559e6bdb23ff.
-//
-// Solidity: event SlasherUpdated(address indexed newSlasher)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchSlasherUpdated(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsSlasherUpdated, newSlasher []common.Address) (event.Subscription, error) {
-
-	var newSlasherRule []interface{}
-	for _, newSlasherItem := range newSlasher {
-		newSlasherRule = append(newSlasherRule, newSlasherItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "SlasherUpdated", newSlasherRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsSlasherUpdated)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "SlasherUpdated", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseSlasherUpdated is a log parse operation binding the contract event 0x0adf62081dae4c128a0af3a933748637b1d874a033588518f810559e6bdb23ff.
-//
-// Solidity: event SlasherUpdated(address indexed newSlasher)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseSlasherUpdated(log types.Log) (*ContractHimeraAvsSlasherUpdated, error) {
-	event := new(ContractHimeraAvsSlasherUpdated)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "SlasherUpdated", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsTaskDefinitionCreatedIterator is returned from FilterTaskDefinitionCreated and is used to iterate over the raw logs and unpacked data for TaskDefinitionCreated events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsTaskDefinitionCreatedIterator struct {
-	Event *ContractHimeraAvsTaskDefinitionCreated // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsTaskDefinitionCreatedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsTaskDefinitionCreated)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsTaskDefinitionCreated)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsTaskDefinitionCreatedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsTaskDefinitionCreatedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsTaskDefinitionCreated represents a TaskDefinitionCreated event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsTaskDefinitionCreated struct {
-	TaskDefinitionId uint8
-	Name             string
-	TaskType         uint8
-	Raw              types.Log // Blockchain specific contextual infos
-}
-
-// FilterTaskDefinitionCreated is a free log retrieval operation binding the contract event 0x1b6bb8ffcd76909ae520aa61bd004fe8cf42b17b448db5d7c04e940b6834ccb5.
-//
-// Solidity: event TaskDefinitionCreated(uint8 indexed taskDefinitionId, string name, uint8 taskType)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterTaskDefinitionCreated(opts *bind.FilterOpts, taskDefinitionId []uint8) (*ContractHimeraAvsTaskDefinitionCreatedIterator, error) {
-
-	var taskDefinitionIdRule []interface{}
-	for _, taskDefinitionIdItem := range taskDefinitionId {
-		taskDefinitionIdRule = append(taskDefinitionIdRule, taskDefinitionIdItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "TaskDefinitionCreated", taskDefinitionIdRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsTaskDefinitionCreatedIterator{contract: _ContractHimeraAvs.contract, event: "TaskDefinitionCreated", logs: logs, sub: sub}, nil
-}
-
-// WatchTaskDefinitionCreated is a free log subscription operation binding the contract event 0x1b6bb8ffcd76909ae520aa61bd004fe8cf42b17b448db5d7c04e940b6834ccb5.
-//
-// Solidity: event TaskDefinitionCreated(uint8 indexed taskDefinitionId, string name, uint8 taskType)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchTaskDefinitionCreated(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsTaskDefinitionCreated, taskDefinitionId []uint8) (event.Subscription, error) {
-
-	var taskDefinitionIdRule []interface{}
-	for _, taskDefinitionIdItem := range taskDefinitionId {
-		taskDefinitionIdRule = append(taskDefinitionIdRule, taskDefinitionIdItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "TaskDefinitionCreated", taskDefinitionIdRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsTaskDefinitionCreated)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskDefinitionCreated", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseTaskDefinitionCreated is a log parse operation binding the contract event 0x1b6bb8ffcd76909ae520aa61bd004fe8cf42b17b448db5d7c04e940b6834ccb5.
-//
-// Solidity: event TaskDefinitionCreated(uint8 indexed taskDefinitionId, string name, uint8 taskType)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseTaskDefinitionCreated(log types.Log) (*ContractHimeraAvsTaskDefinitionCreated, error) {
-	event := new(ContractHimeraAvsTaskDefinitionCreated)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskDefinitionCreated", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsTaskSubmittedIterator is returned from FilterTaskSubmitted and is used to iterate over the raw logs and unpacked data for TaskSubmitted events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsTaskSubmittedIterator struct {
-	Event *ContractHimeraAvsTaskSubmitted // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsTaskSubmittedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsTaskSubmitted)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsTaskSubmitted)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsTaskSubmittedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsTaskSubmittedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsTaskSubmitted represents a TaskSubmitted event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsTaskSubmitted struct {
-	TaskID   uint64
-	Operator common.Address
-	Phase    uint8
-	Raw      types.Log // Blockchain specific contextual infos
-}
-
-// FilterTaskSubmitted is a free log retrieval operation binding the contract event 0x852ef925dfb4a67eaf327f40c6c555596a5c1b2099e05cad9362356ec8916ae3.
-//
-// Solidity: event TaskSubmitted(uint64 indexed taskID, address indexed operator, uint8 phase)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterTaskSubmitted(opts *bind.FilterOpts, taskID []uint64, operator []common.Address) (*ContractHimeraAvsTaskSubmittedIterator, error) {
-
-	var taskIDRule []interface{}
-	for _, taskIDItem := range taskID {
-		taskIDRule = append(taskIDRule, taskIDItem)
-	}
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "TaskSubmitted", taskIDRule, operatorRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsTaskSubmittedIterator{contract: _ContractHimeraAvs.contract, event: "TaskSubmitted", logs: logs, sub: sub}, nil
-}
-
-// WatchTaskSubmitted is a free log subscription operation binding the contract event 0x852ef925dfb4a67eaf327f40c6c555596a5c1b2099e05cad9362356ec8916ae3.
-//
-// Solidity: event TaskSubmitted(uint64 indexed taskID, address indexed operator, uint8 phase)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchTaskSubmitted(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsTaskSubmitted, taskID []uint64, operator []common.Address) (event.Subscription, error) {
-
-	var taskIDRule []interface{}
-	for _, taskIDItem := range taskID {
-		taskIDRule = append(taskIDRule, taskIDItem)
-	}
-	var operatorRule []interface{}
-	for _, operatorItem := range operator {
-		operatorRule = append(operatorRule, operatorItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "TaskSubmitted", taskIDRule, operatorRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsTaskSubmitted)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskSubmitted", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseTaskSubmitted is a log parse operation binding the contract event 0x852ef925dfb4a67eaf327f40c6c555596a5c1b2099e05cad9362356ec8916ae3.
-//
-// Solidity: event TaskSubmitted(uint64 indexed taskID, address indexed operator, uint8 phase)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseTaskSubmitted(log types.Log) (*ContractHimeraAvsTaskSubmitted, error) {
-	event := new(ContractHimeraAvsTaskSubmitted)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskSubmitted", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// ContractHimeraAvsUpgradedIterator is returned from FilterUpgraded and is used to iterate over the raw logs and unpacked data for Upgraded events raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsUpgradedIterator struct {
-	Event *ContractHimeraAvsUpgraded // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *ContractHimeraAvsUpgradedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(ContractHimeraAvsUpgraded)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(ContractHimeraAvsUpgraded)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *ContractHimeraAvsUpgradedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *ContractHimeraAvsUpgradedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// ContractHimeraAvsUpgraded represents a Upgraded event raised by the ContractHimeraAvs contract.
-type ContractHimeraAvsUpgraded struct {
-	Implementation common.Address
-	Raw            types.Log // Blockchain specific contextual infos
-}
-
-// FilterUpgraded is a free log retrieval operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
-//
-// Solidity: event Upgraded(address indexed implementation)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) FilterUpgraded(opts *bind.FilterOpts, implementation []common.Address) (*ContractHimeraAvsUpgradedIterator, error) {
-
-	var implementationRule []interface{}
-	for _, implementationItem := range implementation {
-		implementationRule = append(implementationRule, implementationItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.FilterLogs(opts, "Upgraded", implementationRule)
-	if err != nil {
-		return nil, err
-	}
-	return &ContractHimeraAvsUpgradedIterator{contract: _ContractHimeraAvs.contract, event: "Upgraded", logs: logs, sub: sub}, nil
-}
-
-// WatchUpgraded is a free log subscription operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
-//
-// Solidity: event Upgraded(address indexed implementation)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) WatchUpgraded(opts *bind.WatchOpts, sink chan<- *ContractHimeraAvsUpgraded, implementation []common.Address) (event.Subscription, error) {
-
-	var implementationRule []interface{}
-	for _, implementationItem := range implementation {
-		implementationRule = append(implementationRule, implementationItem)
-	}
-
-	logs, sub, err := _ContractHimeraAvs.contract.WatchLogs(opts, "Upgraded", implementationRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(ContractHimeraAvsUpgraded)
-				if err := _ContractHimeraAvs.contract.UnpackLog(event, "Upgraded", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseUpgraded is a log parse operation binding the contract event 0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b.
-//
-// Solidity: event Upgraded(address indexed implementation)
-func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseUpgraded(log types.Log) (*ContractHimeraAvsUpgraded, error) {
-	event := new(ContractHimeraAvsUpgraded)
-	if err := _ContractHimeraAvs.contract.UnpackLog(event, "Upgraded", log); err != nil {
+// Solidity: event TaskResolved(uint64 taskId, address taskAddress)
+func (_ContractHimeraAvs *ContractHimeraAvsFilterer) ParseTaskResolved(log types.Log) (*ContractHimeraAvsTaskResolved, error) {
+	event := new(ContractHimeraAvsTaskResolved)
+	if err := _ContractHimeraAvs.contract.UnpackLog(event, "TaskResolved", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

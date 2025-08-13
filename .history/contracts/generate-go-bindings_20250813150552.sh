@@ -4,7 +4,7 @@
 rm -rf ./contracts/build
 
 # Traverse all subdirectories in the "pre" folder
-for dir in ./contracts/src/HimeraAvs/; do
+for dir in ./contracts/src/himeraAvs/; do
     # Extract the directory name (excluding the path)
     dirname=$(basename "$dir")
 
