@@ -54,8 +54,8 @@ func BuildAvsRegistryChainSubscriber(
 
 // La función ahora acepta el tipo de canal correcto y llama a la función de 'Watch' correcta.
 func (s *AvsRegistryChainSubscriber) SubscribeToNewTasks(newTaskCreatedChan chan *himera_avs.ContractHimeraAvsTaskCreated) (event.Subscription, error) {
-	sub, err := s.avssub.WatchTaskCreated(
-		&bind.WatchOpts{}, newTaskCreatedChan,
+	sub, err := s.avssub.WatchHimeraTaskCreated(
+		&bind.WatchOpts{}, newTaskCreatedChan, nil, nil, nil,
 	)
 	if err != nil {
 		s.logger.Error("Failed to subscribe to new HimeraTaskCreated events", "err", err)

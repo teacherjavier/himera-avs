@@ -13,10 +13,10 @@ import (
 
 // La interfaz se actualiza para usar los tipos de IAVSManager que genera abigen para HIMERA
 type AvsReader interface {
-	GetOptInOperators(opts *bind.CallOpts, avsAddress string) ([]gethcommon.Address, error)
-	GetRegisteredPubkey(opts *bind.CallOpts, avsAddress string, operator gethcommon.Address) ([]byte, error)
-	GtAVSUSDValue(opts *bind.CallOpts, avsAddress string) (sdkmath.LegacyDec, error)
-	GetOperatorOptedUSDValue(opts *bind.CallOpts, avsAddress string, operatorAddr gethcommon.Address) (sdkmath.LegacyDec, error)
+	GetOptInOperators(opts *bind.CallOpts) ([]gethcommon.Address, error)
+	GetRegisteredPubkey(opts *bind.CallOpts, operator gethcommon.Address) ([]byte, error)
+	GtAVSUSDValue(opts *bind.CallOpts) (sdkmath.LegacyDec, error)
+	GetOperatorOptedUSDValue(opts *bind.CallOpts, operatorAddr gethcommon.Address) (sdkmath.LegacyDec, error)
 	GetAVSEpochIdentifier(opts *bind.CallOpts, avsAddress string) (string, error)
 	GetTaskInfo(opts *bind.CallOpts, taskAddress string, taskID uint64) (himera_avs.TaskInfo, error)
 	IsOperator(opts *bind.CallOpts, operator gethcommon.Address) (bool, error)
@@ -28,14 +28,14 @@ type AvsReader interface {
 
 type ChainReader struct {
 	logger     logging.Logger
-	avsManager *himera_avs.ContractHimeraAvs
+	avsManager *himera_avs.ContracthelloWorld
 	ethClient  eth.EthClient
 }
 
 var _ AvsReader = (*ChainReader)(nil)
 
 func NewChainReader(
-	avsManager *himera_avs.ContractHimeraAvs,
+	avsManager *himera_avs.ContracthelloWorld,
 	logger logging.Logger,
 	ethClient eth.EthClient,
 ) *ChainReader {
