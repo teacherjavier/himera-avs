@@ -22,7 +22,9 @@ import (
 )
 
 const (
-	DepositABI  = `[{"inputs":[{"internalType":"uint32","name":"clientChainID","type":"uint32"},{"internalType":"bytes","name":"assetsAddress","type":"bytes"},{"internalType":"bytes","name":"stakerAddress","type":"bytes"},{"internalType":"uint256","name":"opAmount","type":"uint256"}],"name":"depositLST","outputs":[{"internalType":"bool","name":"success","type":"bool"},{"internalType":"uint256","name":"latestAssetState","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]`
+	// DepositABI is the ABI for the depositLST function.
+	DepositABI = `[{"inputs":[{"internalType":"uint32","name":"clientChainID","type":"uint32"},{"internalType":"bytes","name":"assetsAddress","type":"bytes"},{"internalType":"bytes","name":"stakerAddress","type":"bytes"},{"internalType":"uint256","name":"opAmount","type":"uint256"}],"name":"depositLST","outputs":[{"internalType":"bool","name":"success","type":"bool"},{"internalType":"uint256","name":"latestAssetState","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]`
+	// DelegateABI is the ABI for the delegation functions.
 	DelegateABI = `[
 	{
 		"inputs": [
@@ -156,7 +158,6 @@ const (
 		"type": "function"
 	}
 ]`
-	//	DelegateABI               = `[{"inputs":[{"internalType":"uint32","name":"clientChainID","type":"uint32"},{"internalType":"bytes","name":"staker","type":"bytes"},{"internalType":"bytes","name":"operator","type":"bytes"}],"name":"associateOperatorWithStaker","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint32","name":"clientChainID","type":"uint32"},{"internalType":"uint64","name":"lzNonce","type":"uint64"},{"internalType":"bytes","name":"assetsAddress","type":"bytes"},{"internalType":"bytes","name":"stakerAddress","type":"bytes"},{"internalType":"bytes","name":"operatorAddr","type":"bytes"},{"internalType":"uint256","name":"opAmount","type":"uint256"}],"name":"delegate","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint32","name":"clientChainID","type":"uint32"},{"internalType":"bytes","name":"staker","type":"bytes"}],"name":"dissociateOperatorFromStaker","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint32","name":"clientChainID","type":"uint32"},{"internalType":"uint64","name":"lzNonce","type":"uint64"},{"internalType":"bytes","name":"assetsAddress","type":"bytes"},{"internalType":"bytes","name":"stakerAddress","type":"bytes"},{"internalType":"bytes","name":"operatorAddr","type":"bytes"},{"internalType":"uint256","name":"opAmount","type":"uint256"}],"name":"undelegate","outputs":[{"internalType":"bool","name":"success","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]`
 	depositPrecompileAddress  = "0x0000000000000000000000000000000000000804"
 	delegatePrecompileAddress = "0x0000000000000000000000000000000000000805"
 	defaultAssetID            = "0xdAC17F958D2ee523a2206206994597C13D831ec7"
@@ -164,10 +165,18 @@ const (
 	layerZeroID               = uint32(101)
 )
 
+// Deposit performs a deposit transaction on behalf of the operator.
+//
+// Returns:
+//   - An error if the deposit transaction fails.
 func (operator *Operator) Deposit() error {
 	return deposit(operator.config.EthRpcUrl, operator.config.Staker, big.NewInt(operator.config.DepositAmount))
 }
 
+// Delegate performs a delegation transaction on behalf of the operator.
+//
+// Returns:
+//   - An error if the delegation transaction fails.
 func (operator *Operator) Delegate() error {
 	operatorbench32Address, err := core.SwitchEthAddressToImAddress(operator.config.OperatorAddress)
 	if err != nil {
@@ -177,6 +186,10 @@ func (operator *Operator) Delegate() error {
 	return delegateTo(operator.config.EthRpcUrl, operator.config.Staker, operatorbench32Address, big.NewInt(operator.config.DelegateAmount))
 }
 
+// SelfDelegate performs a self-delegation transaction on behalf of the operator.
+//
+// Returns:
+//   - An error if the self-delegation transaction fails.
 func (operator *Operator) SelfDelegate() error {
 	operatorbench32Address, err := core.SwitchEthAddressToImAddress(operator.config.OperatorAddress)
 	if err != nil {
@@ -188,6 +201,7 @@ func (operator *Operator) SelfDelegate() error {
 	return selfDelegate(operator.config.EthRpcUrl, staker, operatorbench32Address)
 }
 
+// deposit performs a deposit transaction.
 func deposit(rpcUrl, stakerAddress string, amount *big.Int) error {
 	depositAddr := common.HexToAddress(depositPrecompileAddress)
 	assetAddr := common.HexToAddress(defaultAssetID)
@@ -228,13 +242,13 @@ func deposit(rpcUrl, stakerAddress string, amount *big.Int) error {
 	return waitForTransaction(ethClient, txID)
 }
 
+// delegateTo performs a delegation transaction.
 func delegateTo(rpcUrl, stakerAddress, operatorBench32Str string, amount *big.Int) error {
 	delegateAddr := common.HexToAddress(delegatePrecompileAddress)
 	assetAddr := common.HexToAddress(defaultAssetID)
 	stakerAddr := common.HexToAddress(stakerAddress)
 	operatorAddr := []byte(operatorBench32Str)
 	opAmount := amount
-	// lzNonce := uint64(0)
 	_, ethClient, err := connectToEthereum(rpcUrl)
 	if err != nil {
 		return err
@@ -269,7 +283,7 @@ func delegateTo(rpcUrl, stakerAddress, operatorBench32Str string, amount *big.In
 	return waitForTransaction(ethClient, txID)
 }
 
-// stakerAddr without "0x" string
+// selfDelegate performs a self-delegation transaction.
 func selfDelegate(rpcUrl, stakerAddr, operatorBench32Str string) error {
 	delegateAddr := common.HexToAddress(delegatePrecompileAddress)
 	operatorAddr := []byte(operatorBench32Str)
@@ -313,6 +327,7 @@ func selfDelegate(rpcUrl, stakerAddr, operatorBench32Str string) error {
 	return waitForTransaction(ethClient, txID)
 }
 
+// connectToEthereum connects to an Ethereum node.
 func connectToEthereum(nodeURL string) (*rpc.Client, *ethclient.Client, error) {
 	client, err := rpc.DialContext(context.Background(), nodeURL)
 	if err != nil {
@@ -322,6 +337,7 @@ func connectToEthereum(nodeURL string) (*rpc.Client, *ethclient.Client, error) {
 	return client, ethClient, nil
 }
 
+// getPrivateKeyAndAddress returns the private key and address for a given hexadecimal private key.
 func getPrivateKeyAndAddress(privateKey string) (*ecdsa.PrivateKey, common.Address, error) {
 	sk, err := crypto.HexToECDSA(privateKey)
 	if err != nil {
@@ -331,6 +347,7 @@ func getPrivateKeyAndAddress(privateKey string) (*ecdsa.PrivateKey, common.Addre
 	return sk, callAddr, nil
 }
 
+// paddingAddressTo32 pads an address to 32 bytes.
 func paddingAddressTo32(address common.Address) []byte {
 	paddingLen := 32 - len(address)
 	ret := make([]byte, len(address))
@@ -342,6 +359,7 @@ func paddingAddressTo32(address common.Address) []byte {
 	return ret
 }
 
+// sendTransaction sends a transaction to the Ethereum network.
 func sendTransaction(client *ethclient.Client, chainID *big.Int, from common.Address, sk *ecdsa.PrivateKey, to common.Address, data []byte) (string, error) {
 	ctx := context.Background()
 	nonce, err := client.NonceAt(ctx, from, nil)
@@ -370,6 +388,7 @@ func sendTransaction(client *ethclient.Client, chainID *big.Int, from common.Add
 	return signedTx.Hash().String(), nil
 }
 
+// waitForTransaction waits for a transaction to be mined.
 func waitForTransaction(client *ethclient.Client, txID string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()

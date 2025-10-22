@@ -21,10 +21,6 @@ import (
 	sdklogging "github.com/imua-xyz/imua-avs-sdk/logging"
 	"github.com/imua-xyz/imua-avs-sdk/signer"
 	
-	// ¡IMPORTANTE! Asegúrate de que estas rutas sean correctas para tu proyecto
-	// himera_avs "github.com/himera-avs/src/bindings/bindings_himera_avs"
-	// "github.com/himera-avs/utils"
-
 	himera_avs "github.com/imua-xyz/imua-avs/contracts/bindings/avs"
 	"github.com/imua-xyz/imua-avs-sdk/utils"
 	"github.com/imua-xyz/imua-avs/core"
@@ -36,6 +32,7 @@ import (
 
 const retryDelay = 3 * time.Second
 
+// Operator represents an AVS operator, responsible for processing tasks and interacting with the blockchain.
 type Operator struct {
 	config             types.NodeConfig
 	logger             sdklogging.Logger
@@ -50,6 +47,14 @@ type Operator struct {
 	newTaskCreatedChan chan *himera_avs.ContractHimeraAvsHimeraTaskCreated
 }
 
+// NewOperatorFromConfig creates a new Operator instance from the given configuration.
+//
+// Parameters:
+//   - c: The NodeConfig containing the operator's configuration.
+//
+// Returns:
+//   - A new Operator instance.
+//   - An error if the operator cannot be initialized.
 func NewOperatorFromConfig(c types.NodeConfig) (*Operator, error) {
 	logger, err := sdklogging.NewZapLogger(sdklogging.Development)
 	if err != nil { return nil, fmt.Errorf("cannot create logger: %w", err) }
@@ -104,6 +109,13 @@ func NewOperatorFromConfig(c types.NodeConfig) (*Operator, error) {
 	return operator, nil
 }
 
+// Start begins the operator's main loop, listening for new tasks and processing them.
+//
+// Parameters:
+//   - ctx: The context to control the operator's lifecycle.
+//
+// Returns:
+//   - An error if the operator fails to start or encounters a critical error.
 func (o *Operator) Start(ctx context.Context) error {
 	o.logger.Info("Starting HIMERA Operator Service...")
 
@@ -138,6 +150,7 @@ func (o *Operator) Start(ctx context.Context) error {
 	}
 }
 
+// taskProcessor is the main loop for processing new tasks.
 func (o *Operator) taskProcessor(ctx context.Context) {
 	for {
 		select {
@@ -163,6 +176,13 @@ func (o *Operator) taskProcessor(ctx context.Context) {
 	}
 }
 
+// ProcessNewTaskCreatedLog processes a new task event and returns a TaskResponse.
+//
+// Parameters:
+//   - e: The new task event.
+//
+// Returns:
+//   - A TaskResponse containing the result of the task.
 func (o *Operator) ProcessNewTaskCreatedLog(e *himera_avs.ContractHimeraAvsHimeraTaskCreated) *core.TaskResponse {
 	o.logger.Info("New HIMERA Task Received", "TaskID", e.ImuaTaskId.Uint64(), "TaskDefId", e.HimeraTaskDefId)
 	var taskResult bool
@@ -187,6 +207,15 @@ func (o *Operator) ProcessNewTaskCreatedLog(e *himera_avs.ContractHimeraAvsHimer
 	return &core.TaskResponse{TaskID: e.ImuaTaskId.Uint64(), TaskResult: taskResult}
 }
 
+// SignTaskResponse signs a task response with the operator's BLS private key.
+//
+// Parameters:
+//   - taskResponse: The task response to sign.
+//
+// Returns:
+//   - The marshaled BLS signature.
+//   - The ABI-encoded task response.
+//   - An error if the signing fails.
 func (o *Operator) SignTaskResponse(taskResponse *core.TaskResponse) ([]byte, []byte, error) {
 	boolType, _ := abi.NewType("bool", "", nil)
     arguments := abi.Arguments{{Type: boolType}}
@@ -198,6 +227,19 @@ func (o *Operator) SignTaskResponse(taskResponse *core.TaskResponse) ([]byte, []
 	return sig.Marshal(), responseBytes, nil
 }
 
+// SendSignedTaskResponseToChain sends a signed task response to the AVS contract.
+// This function handles both phase one (commit) and phase two (reveal) submissions.
+//
+// Parameters:
+//   - ctx: The context for the transaction.
+//   - taskId: The ID of the task.
+//   - taskResponse: The ABI-encoded task response.
+//   - blsSignature: The BLS signature of the task response.
+//   - taskInfo: Information about the task, including epoch details.
+//
+// Returns:
+//   - A string indicating the result of the submission.
+//   - An error if the submission fails.
 func (o *Operator) SendSignedTaskResponseToChain(ctx context.Context, taskId uint64, taskResponse []byte, blsSignature []byte, taskInfo types.TaskInfo) (string, error) {
 	startingEpoch := taskInfo.StartingEpoch
 	taskResponsePeriod := taskInfo.TaskResponsePeriod
@@ -247,8 +289,7 @@ func (o *Operator) SendSignedTaskResponseToChain(ctx context.Context, taskId uin
 	}
 }
 
-// --- Task Handlers (Lógica de Negocio de HIMERA) ---
-
+// handleVerifyEvmAuth handles the VERIFY_EVM_AUTHORIZATION task.
 func (o *Operator) handleVerifyEvmAuth(taskInput []byte) (bool, error) {
 	addressType, _ := abi.NewType("address", "", nil)
 	bytes32Type, _ := abi.NewType("bytes32", "", nil)
@@ -271,6 +312,7 @@ func (o *Operator) handleVerifyEvmAuth(taskInput []byte) (bool, error) {
 	return isValid, nil
 }
 
+// handleAuditStrategy handles the AUDIT_STRATEGY_EXECUTION task.
 func (o *Operator) handleAuditStrategy(taskInput []byte) (bool, error) {
 	addrType, _ := abi.NewType("address", "", nil)
     bytes32Type, _ := abi.NewType("bytes32", "", nil)
@@ -290,6 +332,7 @@ func (o *Operator) handleAuditStrategy(taskInput []byte) (bool, error) {
     return isValid, nil
 }
 
+// handleAuditBalance handles the AUDIT_ACCOUNT_BALANCE task.
 func (o *Operator) handleAuditBalance(taskInput []byte) (bool, error) {
     addrType, _ := abi.NewType("address", "", nil)
     balType, _ := abi.NewType("uint256", "", nil)

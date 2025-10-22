@@ -23,18 +23,29 @@ var (
 		{Name: "NumberSquared", Type: "uint64"},
 	})
 
+	// Args defines the ABI arguments for a TaskResponse.
 	Args = abi.Arguments{
 		{Type: taskResponseType, Name: "TaskResponse"},
 	}
 )
 
+// TaskResponse represents the response to a task.
 type TaskResponse struct {
 	TaskID        uint64
 	NumberSquared uint64
 }
 
+// BLSMessageToSign is the format string for the message signed by the BLS key.
 const BLSMessageToSign = "BLS12-381 Signed Message\nChainIDWithoutRevision: %s\nAccAddressBech32: %s"
 
+// AbiEncode encodes a TaskResponse into ABI format.
+//
+// Parameters:
+//   - resp: The TaskResponse to encode.
+//
+// Returns:
+//   - A byte slice representing the ABI-encoded TaskResponse.
+//   - An error if the encoding fails.
 func AbiEncode(resp TaskResponse) ([]byte, error) {
 
 	abiArgs := abi.Arguments{
@@ -48,6 +59,14 @@ func AbiEncode(resp TaskResponse) ([]byte, error) {
 	return abiArgs.Pack(taskID, numSquared)
 }
 
+// AbiDecode decodes ABI-encoded data into a TaskResponse.
+//
+// Parameters:
+//   - data: The ABI-encoded data.
+//
+// Returns:
+//   - The decoded TaskResponse.
+//   - An error if the decoding fails.
 func AbiDecode(data []byte) (TaskResponse, error) {
 	abiArgs := abi.Arguments{
 		{Name: "taskID", Type: mustNewType("uint64")},
@@ -70,6 +89,14 @@ func AbiDecode(data []byte) (TaskResponse, error) {
 	}, nil
 }
 
+// mustNewType creates a new ABI type and panics on error.
+// This is a helper function to avoid error handling for ABI type creation.
+//
+// Parameters:
+//   - typeStr: The string representation of the ABI type.
+//
+// Returns:
+//   - The ABI type.
 func mustNewType(typeStr string) abi.Type {
 	t, err := abi.NewType(typeStr, "", nil)
 	if err != nil {
@@ -78,20 +105,42 @@ func mustNewType(typeStr string) abi.Type {
 	return t
 }
 
-// MarshalTaskResponse GetTaskResponseDigestEncodeByjson returns the hash of the TaskResponse, which is what operators sign over
-// MarshalTaskResponse marshals the TaskResponse struct into JSON bytes.
+// MarshalTaskResponse marshals a TaskResponse struct into JSON bytes.
+//
+// Parameters:
+//   - h: The TaskResponse to marshal.
+//
+// Returns:
+//   - The JSON-encoded TaskResponse.
+//   - An error if the marshaling fails.
 func MarshalTaskResponse(h TaskResponse) ([]byte, error) {
 	return json.Marshal(h)
 }
 
-// UnmarshalTaskResponse unmarshals the JSON bytes into a TaskResponse struct.
+// UnmarshalTaskResponse unmarshals JSON bytes into a TaskResponse struct.
+//
+// Parameters:
+//   - jsonData: The JSON-encoded data.
+//
+// Returns:
+//   - The unmarshaled TaskResponse.
+//   - An error if the unmarshaling fails.
 func UnmarshalTaskResponse(jsonData []byte) (TaskResponse, error) {
 	var taskResponse TaskResponse
 	err := json.Unmarshal(jsonData, &taskResponse)
 	return taskResponse, err
 }
 
-// GetTaskResponseDigestEncodeByjson returns the hash of the TaskResponse, which is what operators sign over.
+// GetTaskResponseDigestEncodeByjson returns the Keccak256 hash of a JSON-encoded TaskResponse.
+// This is the digest that operators sign.
+//
+// Parameters:
+//   - h: The TaskResponse to hash.
+//
+// Returns:
+//   - The 32-byte Keccak256 hash of the TaskResponse.
+//   - The JSON-encoded TaskResponse.
+//   - An error if the marshaling fails.
 func GetTaskResponseDigestEncodeByjson(h TaskResponse) ([32]byte, []byte, error) {
 	jsonData, err := MarshalTaskResponse(h)
 	if err != nil {
@@ -100,6 +149,16 @@ func GetTaskResponseDigestEncodeByjson(h TaskResponse) ([32]byte, []byte, error)
 	taskResponseDigest := crypto.Keccak256Hash(jsonData)
 	return taskResponseDigest, jsonData, nil
 }
+
+// GetTaskResponseDigestEncodeByAbi returns the Keccak256 hash of an ABI-encoded TaskResponse.
+//
+// Parameters:
+//   - h: The TaskResponse to hash.
+//
+// Returns:
+//   - The 32-byte Keccak256 hash of the TaskResponse.
+//   - The ABI-encoded TaskResponse.
+//   - An error if the encoding fails.
 func GetTaskResponseDigestEncodeByAbi(h TaskResponse) ([32]byte, []byte, error) {
 	packed, err := Args.Pack(h)
 	if err != nil {
@@ -108,6 +167,16 @@ func GetTaskResponseDigestEncodeByAbi(h TaskResponse) ([32]byte, []byte, error) 
 	taskResponseDigest := crypto.Keccak256Hash(packed)
 	return taskResponseDigest, packed, nil
 }
+
+// UpdateYAMLWithComments updates a YAML file with a new value for a given key, preserving comments.
+//
+// Parameters:
+//   - filePath: The path to the YAML file.
+//   - key: The key to update.
+//   - newValue: The new value for the key.
+//
+// Returns:
+//   - An error if the file cannot be read, parsed, or written.
 func UpdateYAMLWithComments(filePath, key, newValue string) error {
 	if newValue == "" {
 		panic("param is nil")
@@ -143,6 +212,15 @@ func UpdateYAMLWithComments(filePath, key, newValue string) error {
 
 	return os.WriteFile(filePath, buf.Bytes(), 0644)
 }
+
+// GetFileInCurrentDirectory returns the full path of a file in the current directory.
+//
+// Parameters:
+//   - filename: The name of the file.
+//
+// Returns:
+//   - The full path to the file.
+//   - An error if the file is not found or the current directory cannot be determined.
 func GetFileInCurrentDirectory(filename string) (string, error) {
 	// Get current working directory
 	currentDir, err := os.Getwd()
@@ -161,6 +239,14 @@ func GetFileInCurrentDirectory(filename string) (string, error) {
 
 	return fullPath, nil
 }
+
+// ConvertToEthAddresses converts a slice of hexadecimal string addresses to a slice of common.Address.
+//
+// Parameters:
+//   - strArray: A slice of hexadecimal string addresses.
+//
+// Returns:
+//   - A slice of common.Address.
 func ConvertToEthAddresses(strArray []string) []common.Address {
 	var ethAddresses []common.Address
 
@@ -173,6 +259,15 @@ func ConvertToEthAddresses(strArray []string) []common.Address {
 
 	return ethAddresses
 }
+
+// SwitchEthAddressToImAddress converts an Ethereum address to an Imua address.
+//
+// Parameters:
+//   - ethAddress: The hexadecimal string representation of the Ethereum address.
+//
+// Returns:
+//   - The bech32-encoded Imua address.
+//   - An error if the address cannot be converted.
 func SwitchEthAddressToImAddress(ethAddress string) (string, error) {
 	b, err := hex.DecodeString(ethAddress[2:])
 	if err != nil {
@@ -191,6 +286,12 @@ func SwitchEthAddressToImAddress(ethAddress string) (string, error) {
 
 // ChainIDWithoutRevision returns the chainID without the revision number.
 // For example, "imuachaintestnet_233-1" returns "imuachaintestnet_233".
+//
+// Parameters:
+//   - chainID: The chain ID string.
+//
+// Returns:
+//   - The chain ID without the revision number.
 func ChainIDWithoutRevision(chainID string) string {
 	if !IsRevisionFormat(chainID) {
 		return chainID
@@ -199,4 +300,5 @@ func ChainIDWithoutRevision(chainID string) string {
 	return splitStr[0]
 }
 
+// IsRevisionFormat checks if a string is in the revision format (e.g., "name-1").
 var IsRevisionFormat = regexp.MustCompile(`^.*[^\n-]-{1}[1-9][0-9]*$`).MatchString

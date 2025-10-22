@@ -7,6 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 )
 
+// registerOperatorOnStartup registers the operator with the chain and the AVS on startup.
 func (o *Operator) registerOperatorOnStartup() {
 	err := o.RegisterOperatorWithChain()
 	if err != nil {
@@ -21,6 +22,12 @@ func (o *Operator) registerOperatorOnStartup() {
 		o.logger.Fatal("Error registering operator with avs", "err", err)
 	}
 }
+
+// RegisterOperatorWithChain checks if the operator is registered with the chain.
+// If the operator is not registered, it will panic.
+//
+// Returns:
+//   - An error if the operator is not registered or if there is an error checking the registration status.
 func (o *Operator) RegisterOperatorWithChain() error {
 	flag, err := o.avsReader.IsOperator(&bind.CallOpts{}, o.operatorAddr.String())
 	if err != nil {
@@ -35,7 +42,11 @@ func (o *Operator) RegisterOperatorWithChain() error {
 	return nil
 }
 
-// RegisterOperatorWithAvs Registration specific functions
+// RegisterOperatorWithAvs registers the operator with the AVS.
+// If the operator is not already opted-in, it will send a transaction to do so.
+//
+// Returns:
+//   - An error if the registration fails.
 func (o *Operator) RegisterOperatorWithAvs() error {
 	operators, err := o.avsReader.GetOptInOperators(&bind.CallOpts{}, o.avsAddr.String())
 	if err != nil {
@@ -64,15 +75,18 @@ func (o *Operator) RegisterOperatorWithAvs() error {
 	return nil
 }
 
+// OperatorStatus represents the status of the operator.
 type OperatorStatus struct {
-	EcdsaAddress string
-	// pubkey compendium related
+	EcdsaAddress      string
 	PubkeysRegistered bool
 	Pubkey            string
-	// avs related
 	RegisteredWithAvs bool
 }
 
+// PrintOperatorStatus prints the current status of the operator.
+//
+// Returns:
+//   - An error if the status cannot be marshaled to JSON.
 func (o *Operator) PrintOperatorStatus() error {
 	o.logger.Info("Printing operator status")
 	operatorStatus := OperatorStatus{

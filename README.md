@@ -1,233 +1,212 @@
 # Hello World AVS
-# Overview
 
-Welcome to the Hello World AVS. This project shows you the simplest functionality you can expect from an AVS. It will give you a concrete understanding of the basic components.
+Welcome to the Hello World AVS! This project provides a simple, concrete example of an Actively Validated Service (AVS), demonstrating the fundamental components and their interactions. It's an excellent starting point for developers looking to understand and build their own AVSs.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Workflow](#workflow)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+- [Private Key Management](#private-key-management)
+  - [Overview](#overview-1)
+  - [Prerequisites](#prerequisites-1)
+  - [Steps](#steps)
+  - [Key Paths](#key-paths)
+  - [Key Management Best Practices](#key-management-best-practices)
+  - [Verification](#verification)
+  - [Important Password Configuration](#important-password-configuration)
+  - [Secure Environment Variable Management](#secure-environment-variable-management)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+The Hello World AVS is designed to showcase the simplest functionality of an AVS. It provides a clear and concise example of how an AVS consumer can request a "Hello World" message to be generated and signed by a network of operators. This project is ideal for developers who want to learn the basics of AVS development in a hands-on manner.
 
 ## Workflow
-1. AVS consumer requests a "Hello World" message to be generated and signed.
-2. HelloWorld contract receives the request and emits a NewTaskCreated event for the request.
-3. All Operators who are registered to the AVS and has staked, delegated assets takes this request. Operator generates the requested message, hashes it, and signs the hash with their private key.
-4. Each Operator submits their signed hash back to the HelloWorld AVS contract.
-5. If the Operator is registered to the AVS and has the minimum needed stake, the submission is accepted.
 
-# Installation
+1.  **Request:** An AVS consumer requests a "Hello World" message to be generated and signed.
+2.  **Event:** The `HelloWorld` contract receives the request and emits a `NewTaskCreated` event.
+3.  **Task Execution:** Registered and staked operators detect the event, generate the requested message, hash it, and sign the hash with their private keys.
+4.  **Submission:** Each operator submits their signed hash back to the `HelloWorld` AVS contract.
+5.  **Verification:** If the operator is registered and has the minimum required stake, the submission is accepted.
 
-`make build`
-
-Or check out the latest release.
-
-# Quick Start
-
-1.`./imua-key import --key-type ecdsa {pri_key}`   
-2.`./avs/main --config config.yaml`  
-3.`./operator/main --config config.yaml`  
-
-## Private Key Management for AVS and Operator
-
-### Overview
-This document provides a comprehensive guide to generating and managing private keys for the AVS (Actively Validated Service) system using the `imua-key` utility.
+## Getting Started
 
 ### Prerequisites
-- Ensure `imua-key` is installed(use "make imua-key" command)
-- Have private keys ready for import
 
-##  Steps
+- [Go](https://golang.org/doc/install) (version 1.18 or later)
+- [Make](https://www.gnu.org/software/make/)
 
-### 1. Import AVS ECDSA Private Key
-```bash
-# Import AVS private key
-./imua-key importKey --key-type ecdsa --private-key {avs_private_key}  --output-dir tests/keys/avs.ecdsa.key.json
-# Output: tests/keys/avs.ecdsa.key.json
-```
+### Installation
 
-### 2. Import Operator ECDSA Private Key
-```bash
-# Import Operator private key
-./imua-key importKey --key-type ecdsa --private-key {operator_private_key} --output-dir tests/keys/operator.ecdsa.key.json
-# Output: tests/keys/operator.ecdsa.key.json
-```
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/imua-xyz/imua-avs.git
+    cd imua-avs
+    ```
+2.  Build the project:
+    ```bash
+    make build
+    ```
+    This will create the necessary binaries, including `imua-key`, `avs`, and `operator`.
 
-### 3.Generate or Import BLS Private Key for operator
-#### Import
-```bash
-# Import BLS private key
-./imua-key  importKey --key-type bls --private-key {bls_private_key}  --output-dir tests/keys/test.bls.key.json
-# Output: tests/keys/test.bls.key.json
-```
+### Quick Start
 
-#### Generate
-```bash
-# generate BLS key
-./imua-key  generate --key-type bls --num-keys 1
-# Output: random folder
-```
+1.  **Import Keys:**
+    ```bash
+    ./imua-key import --key-type ecdsa {pri_key}
+    ```
+2.  **Run the AVS:**
+    ```bash
+    ./avs/main --config config.yaml
+    ```
+3.  **Run the Operator:**
+    ```bash
+    ./operator/main --config config.yaml
+    ```
+
+## Private Key Management
+
+### Overview
+
+This section provides a comprehensive guide to generating and managing private keys for the AVS system using the `imua-key` utility.
+
+### Prerequisites
+
+- Ensure `imua-key` is installed (use the `make imua-key` command).
+- Have private keys ready for import.
+
+### Steps
+
+1.  **Import AVS ECDSA Private Key:**
+    ```bash
+    ./imua-key importKey --key-type ecdsa --private-key {avs_private_key} --output-dir tests/keys/avs.ecdsa.key.json
+    ```
+2.  **Import Operator ECDSA Private Key:**
+    ```bash
+    ./imua-key importKey --key-type ecdsa --private-key {operator_private_key} --output-dir tests/keys/operator.ecdsa.key.json
+    ```
+3.  **Generate or Import BLS Private Key for the operator:**
+    -   **Import:**
+        ```bash
+        ./imua-key importKey --key-type bls --private-key {bls_private_key} --output-dir tests/keys/test.bls.key.json
+        ```
+    -   **Generate:**
+        ```bash
+        ./imua-key generate --key-type bls --num-keys 1
+        ```
 
 ### Key Paths
-- AVS Owner ECDSA Private Key: `tests/keys/avs.ecdsa.key.json`
-- Operator ECDSA Private Key: `tests/keys/operator.ecdsa.key.json`
-- BLS Private Key: `tests/keys/test.bls.key.json`
 
-## Key Management Best Practices
-- Keep private keys secure
-- Never share private keys
-- Use environment-specific key management
-- Rotate keys periodically
+-   **AVS Owner ECDSA Private Key:** `tests/keys/avs.ecdsa.key.json`
+-   **Operator ECDSA Private Key:** `tests/keys/operator.ecdsa.key.json`
+-   **BLS Private Key:** `tests/keys/test.bls.key.json`
 
-## Verification
+### Key Management Best Practices
+
+-   Keep private keys secure.
+-   Never share private keys.
+-   Use environment-specific key management.
+-   Rotate keys periodically.
+
+### Verification
+
 ```bash
 # Verify key files exist
 ls tests/keys/
 ```
-## Note 🚨
-**Important Password Configuration**
+
+### Important Password Configuration
 
 If a non-empty password is used when writing private keys to JSON files, you must set the corresponding environment variables:
 
-| Key Type | Environment Variable | JSON File Path |
-|----------|---------------------|----------------|
-| BLS Key | `OPERATOR_BLS_KEY_PASSWORD` | `tests/keys/test.bls.key.json` |
+| Key Type           | Environment Variable          | JSON File Path                       |
+| ------------------ | ----------------------------- | ------------------------------------ |
+| BLS Key            | `OPERATOR_BLS_KEY_PASSWORD`     | `tests/keys/test.bls.key.json`         |
 | Operator ECDSA Key | `OPERATOR_ECDSA_KEY_PASSWORD` | `tests/keys/operator.ecdsa.key.json` |
-| AVS ECDSA Key | `AVS_ECDSA_KEY_PASSWORD` | `tests/keys/avs.ecdsa.key.json` |
+| AVS ECDSA Key      | `AVS_ECDSA_KEY_PASSWORD`      | `tests/keys/avs.ecdsa.key.json`        |
 
-## Secure Environment Variable Management
+### Secure Environment Variable Management
 
-### 1. Temporary Terminal Session
-```bash
-# Set individual key passwords
-export OPERATOR_BLS_KEY_PASSWORD="strong_bls_password"
-export OPERATOR_ECDSA_KEY_PASSWORD="strong_ecdsa_password"
-export AVS_ECDSA_KEY_PASSWORD="strong_avs_password"
-```
+-   **Temporary Terminal Session:**
+    ```bash
+    export OPERATOR_BLS_KEY_PASSWORD="strong_bls_password"
+    export OPERATOR_ECDSA_KEY_PASSWORD="strong_ecdsa_password"
+    export AVS_ECDSA_KEY_PASSWORD="strong_avs_password"
+    ```
+-   **Persistent Zsh Configuration:**
+    ```bash
+    # Edit ~/.zshrc configuration
+    nano ~/.zshrc
 
-### 2. Persistent Zsh Configuration
-```bash
-# Edit ~/.zshrc configuration
-nano ~/.zshrc
+    # Add secure passwords
+    export OPERATOR_BLS_KEY_PASSWORD="strong_bls_password"
+    export OPERATOR_ECDSA_KEY_PASSWORD="strong_ecdsa_password"
+    export AVS_ECDSA_KEY_PASSWORD="strong_avs_password"
 
-# Add secure passwords
-export OPERATOR_BLS_KEY_PASSWORD="strong_bls_password"
-export OPERATOR_ECDSA_KEY_PASSWORD="strong_ecdsa_password"
-export AVS_ECDSA_KEY_PASSWORD="strong_avs_password"
+    # Reload configuration
+    source ~/.zshrc
+    ```
 
-# Reload configuration
-source ~/.zshrc
-```
+## Configuration
 
-### Configuration
-#### config.yaml (path/config.yaml)
-```
-# this sets the logger level (true = info, false = debug)
-production: false
-#The eoa address of Operator, used for sending transactions
-operator_address: 0xce5b680d1fd259ada4820e9314bcf0723bdb1287
-#The eoa address of avs owner, used for sending transactions
-avs_owner_address: 0x3e108c058e8066DA635321Dc3018294cA82ddEdf
-#Address of deployed AVS contract
-avs_address: 0xfF8f8297BEF982ac6ED7a203e144D9fa4F0FcE31
-```
+The `config.yaml` file contains the configuration for the AVS and operator.
 
-- **operator_address**
-EIP-55 address for the operator, convert the address from bench32 address with imuad.
+### General Configuration
 
-```
-imuad debug addr <bench32_address>
-```
+-   `production`: Sets the logger level (`true` for info, `false` for debug).
+-   `operator_address`: The EOA address of the operator, used for sending transactions.
+-   `avs_owner_address`: The EOA address of the AVS owner, used for sending transactions.
+-   `avs_address`: The address of the deployed AVS contract.
 
-for example
-```
-imuad debug addr im18cggcpvwspnd5c6ny8wrqxpffj5zmhkl3agtrj
-Address bytes: [62 16 140 5 142 128 102 218 99 83 33 220 48 24 41 76 168 45 222 223]
-Address (hex): 3E108C058E8066DA635321DC3018294CA82DDEDF
-Address (EIP-55): 0x3e108c058e8066DA635321Dc3018294cA82ddEdf
-Bech32 Acc: im18cggcpvwspnd5c6ny8wrqxpffj5zmhkl3agtrj
-Bech32 Val: imvaloper18cggcpvwspnd5c6ny8wrqxpffj5zmhklxvzxw9
-```
+### Ethereum Node Configuration
 
-- **avs_owner_address**
-AVS Owner address is used to deploy the avs contract on imua chain, it should be consistent with the avs_owner_addresses below. please note that avs_owner_addresses use bench32 address, while avs_owner_address use EIP-55 address.
+-   `eth_rpc_url`: The HTTP RPC URL of the Ethereum node.
+-   `eth_ws_url`: The WebSocket URL of the Ethereum node.
 
-- **avs_address**
-The avs contract address deployed on imua chain. If it is empty string, it will be deployed on-fly.
+### Key Configuration
 
-```
-# ETH RPC URL
-eth_rpc_url: http://127.0.0.1:8545
-eth_ws_url: ws://127.0.0.1:8546
-avs_ecdsa_private_key_store_path: tests/keys/avs.ecdsa.key.json
-operator_ecdsa_private_key_store_path: tests/keys/operator.ecdsa.key.json
-bls_private_key_store_path: tests/keys/test.bls.key.json
-node_api_ip_port_address: 0.0.0.0:9010
-enable_node_api: true
-register_operator_on_startup: false
-```
+-   `avs_ecdsa_private_key_store_path`: Path to the AVS ECDSA private key store.
+-   `operator_ecdsa_private_key_store_path`: Path to the operator ECDSA private key store.
+-   `bls_private_key_store_path`: Path to the BLS private key store.
 
-- avs_ecdsa_private_key_store_path
-- operator_ecdsa_private_key_store_path
-- bls_private_key_store_path
-After import avs owner/operator/bls keys with `imua-key` command, the json files will be generted under tests/keys folder.
+### API Configuration
 
-```
-#register avs parameters
-avs_name: "hello-avs"
-min_stake_amount: 1
-avs_owner_addresses:
-  - "im18cggcpvwspnd5c6ny8wrqxpffj5zmhkl3agtrj"
-  - "im1eedksrgl6fv6mfyzp6f3f08swgaaky58xe5m7k"
-asset_ids:
-  - "0xdac17f958d2ee523a2206206994597c13d831ec7_0x65"
-avs_unbonding_period: 7
-min_self_delegation: 0
-epoch_identifier: minute
-avs_reward_address: 0x4f5CDaE0B1afeB0473dEb5AC4F9912409BBBBb72
-avs_slash_address:  0x4f5CDaE0B1afeB0473dEb5AC4F9912409BBBBb72
-task_address:  0x4f5CDaE0B1afeB0473dEb5AC4F9912409BBBBb72
-params:
-  - 5
-  - 7
-  - 8
-  - 4
-```
-- **avs_name**
-User specified AVS name.
-- **min_stake_amount**
-Minimal stake amount for the AVS.
-- **avs_owner_addresses**
-AVS Owner addresses that has access control for the AVS.
-- **asset_ids**
-Asset IDs that are supported by the AVS.
-- **avs_unbonding_period**
-Unbonding period for the AVS.
-- **min_self_delegation**
-Minimal self delegation for the AVS.
-- **epoch_identifier**
-Epoch identifier for the AVS. There are four types of epoch identifier: minute, hour, day, week.
-- **avs_reward_address**
-- **avs_slash_address**
-- **task_address**
-If avs_address is empty above, after the AVS contract is deployed on fly, the avs reward address, slash address and task address will be overwritten by the AVS contract address.
-- **params**
-1. minimal number of opt in operators.
-2. minimal total stake amount.
-3. reward percentage.
-4. slash percentage.
+-   `node_api_ip_port_address`: The IP and port for the Node API.
+-   `enable_node_api`: Enable or disable the Node API.
+-   `register_operator_on_startup`: Automatically register the operator on startup.
 
-```
-#create new task parameters
-#Create task intervals,Unit second
-create_task_interval: 500
-task_response_period: 2
-task_challenge_period: 2
-threshold_percentage: 100
-task_statistical_period: 2
-```
+### AVS Registration Parameters
 
-- **create_task_interval**
-Create task interval(second), 500 stands for create a new task for every 500 seconds.
-- **task_response_period**
-Task response period(epoch),during epoch (the starting epoch , starting epoch + task_response_period] the operator is allowed to submit phase one result.
-- **task_challenge_period**
-Task challenge period(epoch), during epoch (the starting epoch + task_response_period + task_statistical_period , starting epoch + task_response_period + task_statistical_period + task_challenge_period], anyone can raise a challenge for a task.
-- **threshold_percentage**
-Threshold percentage for a task.
-- **task_statistical_period**
-Task statistical period(epoch), during epoch (the starting epoch + task_response_period, the starting epoch + task_response_period + task_statistical_period ], the operator is allowed to submiit phase two result.
+-   `avs_name`: The name of the AVS.
+-   `min_stake_amount`: The minimum stake amount for the AVS.
+-   `avs_owner_addresses`: A list of AVS owner addresses with access control.
+-   `asset_ids`: A list of asset IDs supported by the AVS.
+-   `avs_unbonding_period`: The unbonding period for the AVS.
+-   `min_self_delegation`: The minimum self-delegation for the AVS.
+-   `epoch_identifier`: The epoch identifier for the AVS (`minute`, `hour`, `day`, `week`).
+-   `avs_reward_address`: The AVS reward address.
+-   `avs_slash_address`: The AVS slash address.
+-   `task_address`: The task address.
+-   `params`: A list of parameters including the minimal number of opt-in operators, minimal total stake amount, reward percentage, and slash percentage.
+
+### Task Creation Parameters
+
+-   `create_task_interval`: The interval in seconds for creating new tasks.
+-   `task_response_period`: The period in epochs for operators to submit phase one results.
+-   `task_challenge_period`: The period in epochs for anyone to raise a challenge.
+-   `threshold_percentage`: The threshold percentage for a task.
+-   `task_statistical_period`: The period in epochs for operators to submit phase two results.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

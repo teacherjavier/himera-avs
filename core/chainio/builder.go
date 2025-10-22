@@ -83,13 +83,13 @@ func (config *BuildAllConfig) buildClients(
 
 	// get the Reader for the chain contracts
 	chainReader := NewChainReader(
-		*contractBindings.AVSManager,
+		contractBindings.AVSManager,
 		logger,
 		ethHttpClient,
 	)
 
 	chainWriter := NewChainWriter(
-		*contractBindings.AVSManager,
+		contractBindings.AVSManager,
 		chainReader,
 		ethHttpClient,
 		logger,
